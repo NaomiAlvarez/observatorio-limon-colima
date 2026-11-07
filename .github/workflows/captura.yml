@@ -1,0 +1,24 @@
+name: Captura de datos
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  captura:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Mensaje de prueba
+        run: echo "El workflow funciona. Aquí irá el extractor."
