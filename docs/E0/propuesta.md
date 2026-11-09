@@ -92,7 +92,7 @@ La transcripción contiene cinco preguntas explícitas del equipo y los aprendiz
 Los factores se evaluarán mediante comparación de modelos con y sin cada variable, manteniendo el mismo periodo de evaluación. Producción, superficie y rendimiento son anuales; su disponibilidad no debe presentarse como una medición semanal ni interpretarse como evidencia causal.
 
 ### E3: Grupos multivariados a comparar
-> **¿Qué diferencias existen entre grupos de municipios de Colima definidos conjuntamente por producción, superficie cosechada y rendimiento, en sus perfiles agrícolas anuales según el SIAP (2003–2025)?**
+> **¿Qué grupos de municipios productores de limón en México se distinguen por su producción, superficie cosechada y rendimiento anual en el periodo 2003–2025, y en qué grupo se ubican los municipios de Colima?** 
 
 Los grupos se formarán a partir de esas variables normalizadas y se compararán por sus perfiles y evolución anual. Los precios SNIIM corresponden a mercados y no se atribuirán directamente a un municipio sin una fuente que sustente esa relación.
 
