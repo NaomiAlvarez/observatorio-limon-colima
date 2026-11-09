@@ -1,1 +1,6 @@
-Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
+2026-11-06,Plan,HH:MM,HH:MM,0,XX,Elección del tema y fuentes (SNIIM y SIAP) - estimado
+2026-11-06,Plan,HH:MM,HH:MM,0,XX,Estructura del repositorio y rama de trabajo - estimado
+2026-11-07,Plan,HH:MM,HH:MM,0,XX,Análisis de robots.txt de SNIIM y SIAP - estimado
+2026-11-07,ETL,HH:MM,HH:MM,0,XX,Extractor SNIIM (sniim_captura.py) - estimado
+2026-11-07,ETL,HH:MM,HH:MM,0,XX,Extractor SIAP (siap_captura.py) - estimado
+2026-11-07,Test,HH:MM,HH:MM,0,XX,Captura de prueba y workflow de Actions - estimado

@@ -1,1 +1,4 @@
-Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
+2026-11-07,Configuración,Plan,Test,XX,captura.yml vacío: Actions fallaba con "No event triggers defined in on"
+2026-11-07,Datos,Plan,ETL,XX,URL de consulta de SNIIM incorrecta (404); se obtuvo la URL real de resultados con las herramientas de desarrollador
+2026-11-07,Entorno,ETL,Test,XX,Error TLS al consultar el robots.txt de SIAP con PowerShell; se resolvió con Python
+2026-11-07,Entorno,ETL,ETL,XX,Comandos ejecutados en la carpeta equivocada (fuera del repositorio)
