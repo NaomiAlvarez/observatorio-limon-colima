@@ -23,9 +23,6 @@ fecha_captura_utc,recurso,url,http,bytes_originales,sha256,archivo,resultado
 2026-11-07T18:40:52+00:00,produccion_municipal_2023,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2023,200,6678816,30b3e90714d646821a6320645681b18e8e8fdbba8b88f59d4b5904b23acf4bf6,data\bronce\siap\municipal\cierre_2023.csv.gz,ok
 2026-11-07T18:41:07+00:00,produccion_municipal_2024,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2024,200,5959152,cffa7d638d74b4fc18966154c411ff207530d8be962abc9e311d2b08f3ffbb11,data\bronce\siap\municipal\cierre_2024.csv.gz,ok
 2026-11-07T18:41:18+00:00,produccion_municipal_2025,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2025,200,5771963,1f72e2b0cde3aeb1cac40c205054ce662d65c5f4655831b997bf66c626650243,data\bronce\siap\municipal\cierre_2025.csv.gz,ok
-<<<<<<< HEAD
 2026-11-07T23:17:26+00:00,produccion_municipal_2026,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2026,404,0,,,no_disponible
-=======
 2026-11-07T23:13:05+00:00,produccion_municipal_2026,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2026,404,0,,,no_disponible
 2026-11-07T23:20:02+00:00,produccion_municipal_2026,https://nube.agricultura.gob.mx/index.php?view=10AE434F-A2158368-A120BC5A-EDF4AFAA&ANIO=2026,404,0,,,no_disponible
->>>>>>> origin/Rama-Gonzalo
