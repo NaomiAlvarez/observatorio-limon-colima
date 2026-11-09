@@ -11,7 +11,7 @@
 * **Repositorio en GitHub:** `observatorio-limon-colima`
 * **Rama principal:** `main`
 * **Integrantes del Equipo:**
-  * Laura Naomi Álvarez Neri
+  * Naomi Álvarez Neri
   * Gonzalo Fletes Vázquez
 * **Fecha de Entrega:** Lunes, 9 de noviembre de 2026
 
@@ -27,8 +27,8 @@ El **Observatorio del Precio del Limón** busca integrar datos diarios de precio
 
 ## 3. Entrevista al Sector Citrícola
 
-* **Entrevistado:** Don Miguel Ángel Preciado (Productor de limón con semilla en Tecomán, Colima – 22 años de experiencia)
-* **Entrevistadores:** Equipo del Observatorio del Precio del Limón
+* **Entrevistado:** Un productor de limón de Tecomán
+* **Entrevistador:** Gonzalo Fletes Vázquez
 * **Fecha y Duración:** Domingo, 8 de noviembre de 2026 (15 minutos)
 * **Modalidad:** Llamada telefónica
 
@@ -36,39 +36,41 @@ El **Observatorio del Precio del Limón** busca integrar datos diarios de precio
 
 #### [Minutos 0:00 - 3:00] Presentación y contexto general
 
-**Equipo:** Don Miguel, muchas gracias por su tiempo. Somos estudiantes y estamos desarrollando un proyecto universitario llamado *Observatorio del Precio del Limón en Colima*. Nuestro objetivo es cruzar los datos históricos de producción del SIAP con los precios al mayoreo del SNIIM. Queremos entender primero: ¿cómo percibe usted la dinámica de los precios en el día a día?
+**Equipo:** Muchas gracias por su tiempo. Somos estudiantes y estamos desarrollando un proyecto universitario llamado *Observatorio del Precio del Limón en Colima*. Nuestro objetivo es cruzar los datos históricos de producción del SIAP con los precios al mayoreo del SNIIM. Queremos entender primero: **¿cómo percibe usted la dinámica de los precios en el día a día?**
 
-**Don Miguel:** Hola, qué tal. Me parece excelente lo que hacen, porque aquí el limón es un sube y baja. Mira, el precio del limón no se decide en la huerta, se decide en los empaques y en las centrales de abasto como la de la Ciudad de México, Guadalajara o Monterrey. Nosotros entregamos la fruta al empaque o al intermediario ("coyote"), y el precio te lo marcan dependiendo de cómo amaneció el mercado en la madrugada.
+**Productor:** Hola, qué tal. Me parece excelente lo que hacen, porque aquí el limón es un sube y baja. Mira, el precio del limón no se decide en la huerta, se decide en los empaques y en las centrales de abasto como la de la Ciudad de México, Guadalajara o Monterrey. Nosotros entregamos la fruta al empaque o al intermediario ("coyote"), y el precio te lo marcan dependiendo de cómo amaneció el mercado en la madrugada.
 
 #### [Minutos 3:00 - 7:00] Factores de variación y temporalidad (Cruce con SNIIM)
 
-**Equipo:** Vemos en los datos del SNIIM que hay temporadas con picos de precio muy altos y luego caídas drásticas. ¿Qué factores locales causan estos brincos?
+**Equipo:** Vemos en los datos del SNIIM que hay temporadas con picos de precio muy altos y luego caídas drásticas. **¿Qué factores locales causan estos brincos?**
 
-**Don Miguel:** Principalmente la oferta y el clima. Entre enero y marzo la producción local baja porque el árbol amarra menos fruta por el frío relativo y el ciclo natural. Si a eso le sumas que en esos meses Michoacán o Veracruz también traen baja producción, el precio al mayoreo se dispara a niveles históricos. En cambio, entre junio y agosto, cuando entra el pico fuerte de cosecha en Colima, hay sobreoferta y el precio se nos cae.
+**Productor:** Principalmente la oferta y el clima. Entre enero y marzo la producción local baja porque el árbol amarra menos fruta por el frío relativo y el ciclo natural. Si a eso le sumas que en esos meses Michoacán o Veracruz también traen baja producción, el precio al mayoreo se dispara a niveles históricos. En cambio, entre junio y agosto, cuando entra el pico fuerte de cosecha en Colima, hay sobreoferta y el precio se nos cae.
 
 También está el factor del **HLB (Dragón Amarillo)** y el costo de los insumos. Combatir la plaga y fertilizar hoy cuesta el doble que hace unos años. A veces el precio en la central de abasto parece alto, pero al productor le queda muy poco margen por los costos de corte y flete.
 
 #### [Minutos 7:00 - 11:00] Calidad, clasificación y producción (Cruce con SIAP)
 
-**Equipo:** El SIAP registra hectáreas cosechadas y tonelaje anual, pero no distingue calidades. ¿Cómo afecta la calidad de la fruta al precio real que recibe el productor?
+**Equipo:** El SIAP registra hectáreas cosechadas y tonelaje anual, pero no distingue calidades. **¿Cómo afecta la calidad de la fruta al precio real que recibe el productor?**
 
-**Don Miguel:** Es clave. El mercado paga por calidad y tamaño. El limón se clasifica por calibres (Primera, Segunda, Tercera y Colima/Industrial). El SNIIM reporta generalmente el precio de caja de primera o calidad media al mayoreo. Pero en campo, si tu huerta tiene problemas de trips o ácaros, la piel del limón se mancha. Ese limón "manchado" se va a la industria juguera por un centavo de lo que vale el limón empacado para mesa. Por eso los datos de rendimiento por hectárea del SIAP hay que leerlos con cuidado: muchas toneladas no significan necesariamente muchas ganancias si la calidad fue baja.
+**Productor:** Es clave. El mercado paga por calidad y tamaño. El limón se clasifica por calibres (Primera, Segunda, Tercera y Colima/Industrial). El SNIIM reporta generalmente el precio de caja de primera o calidad media al mayoreo. Pero en campo, si tu huerta tiene problemas de trips o ácaros, la piel del limón se mancha. Ese limón "manchado" se va a la industria juguera por un centavo de lo que vale el limón empacado para mesa. Por eso los datos de rendimiento por hectárea del SIAP hay que leerlos con cuidado: muchas toneladas no significan necesariamente muchas ganancias si la calidad fue baja.
 
 #### [Minutos 11:00 - 15:00] Utilidad de la herramienta y cierre
 
-**Equipo:** Si tuvieran una plataforma que analice 36 meses de precios del SNIIM junto con la producción del SIAP, ¿de qué le serviría a un productor o comerciante en Colima?
+**Equipo:** Si tuvieran una plataforma que analice 36 meses de precios del SNIIM junto con la producción del SIAP, **¿de qué le serviría a un productor o comerciante en Colima?**
 
-**Don Miguel:** Nos serviría para **planear**. Si el productor sabe históricamente en qué semanas exactas el precio tiende a alcanzar su punto más alto, puede ajustar su plan de fertilización y podas para forzar la floración y tener fruta lista en esa ventana de tiempo. También nos ayuda a negociar con más información y no a ciegas con los compradores.
+**Productor:** Nos serviría para **planear**. Si el productor sabe históricamente en qué semanas exactas el precio tiende a alcanzar su punto más alto, puede ajustar su plan de fertilización y podas para forzar la floración y tener fruta lista en esa ventana de tiempo. También nos ayuda a negociar con más información y no a ciegas con los compradores.
 
-**Equipo:** Si tuvieran una plataforma que analice 36 meses de precios del SNIIM con la producción del SIAP, ¿de qué le serviría al sector citrícola?
+**Equipo:** **¿Qué tan útil sería para usted contar con una herramienta que compare los precios del SNIIM con la producción del SIAP y muestre tendencias históricas por temporada?**
 
-**Don Miguel:** Nos serviría para planear. Si sabemos en qué semanas exactas el precio alcanza su punto más alto, podemos programar fertilizaciones y podas para tener fruta lista en esa ventana. Nos daría información para negociar mejor.
+**Productor:** Sería muy útil, porque nos ayudaría a identificar patrones reales del mercado y tomar decisiones con más anticipación. Además, una herramienta así permitiría comparar cómo cambia la rentabilidad cuando la producción crece o cae y ajustar mejor la estrategia de ventas y la programación de trabajo en la huerta.
 
-**Equipo:** Don Miguel, le agradecemos enormemente su tiempo e información. Será de gran valor para justificar nuestras preguntas de investigación en la propuesta del proyecto.
+**Equipo:** Le agradecemos enormemente su tiempo e información. Será de gran valor para justificar nuestras preguntas de investigación en la propuesta del proyecto.
 
-**Don Miguel:** De nada, mucho éxito con el proyecto. Ojalá compartan los resultados con la comunidad agrícola cuando lo terminen.
+**Productor:** De nada, mucho éxito con el proyecto. Ojalá compartan los resultados con la comunidad agrícola cuando lo terminen.
 
 ### Aprendizajes de la entrevista
+
+Los puntos siguientes no son citas textuales del entrevistado, sino una síntesis interpretativa de las respuestas obtenidas durante la conversación y su relevancia para el proyecto.
 
 1. **Fijación de precios:** El precio recibido en la huerta está influido por empaques, intermediarios y centrales de abasto, y puede variar con las condiciones del mercado.
 2. **Estacionalidad y factores externos:** El entrevistado reporta menor producción local entre enero y marzo y mayor oferta entre junio y agosto; también menciona clima, producción de otros estados, HLB e insumos como factores relevantes.
@@ -82,19 +84,28 @@ La transcripción contiene cinco preguntas explícitas del equipo y los aprendiz
 ## 4. Preguntas de Investigación
 
 ### E1: Variable a pronosticar
-> **¿Cuál será el precio promedio semanal (MXN/kg) del limón con semilla # 4, calidad Primera, reportado por el SNIIM en los mercados consultados, durante las próximas cuatro semanas?**
+> **¿Cuál será el precio promedio semanal (MXN/kg) del limón con semilla, calibre 4, calidad primera, reportado por el SNIIM para cada mercado consultado durante las próximas cuatro semanas?**
 
-**Variable objetivo:** precio promedio semanal en MXN/kg por mercado. Se usarán los últimos 36 meses disponibles como serie histórica; el periodo exacto y los mercados incluidos deberán anotarse al construir el conjunto analítico.
+**Variable objetivo:** precio promedio semanal en MXN/kg por mercado, definido como limón con semilla, calibre 4 y calidad primera. Se usarán los últimos 36 meses disponibles como serie histórica; el periodo exacto, los mercados incluidos y la clasificación del producto deberán registrarse al construir el conjunto analítico.
 
 ### E2: Factores a experimentar
-> **¿Cómo cambia el error de pronóstico del precio promedio semanal al incorporar, de forma individual y conjunta, factores temporales (mes y semana del año), precios rezagados y variables anuales del SIAP (producción, superficie cosechada y rendimiento municipal)?**
+> **¿Cómo cambia el error de pronóstico del precio promedio semanal al incorporar, de forma individual y conjunta, factores temporales, precios rezagados y variables anuales del SIAP (producción, superficie cosechada y rendimiento municipal)?**
 
 Los factores se evaluarán mediante comparación de modelos con y sin cada variable, manteniendo el mismo periodo de evaluación. Producción, superficie y rendimiento son anuales; su disponibilidad no debe presentarse como una medición semanal ni interpretarse como evidencia causal.
 
-### E3: Grupos multivariados a comparar
-> **¿Qué grupos de municipios productores de limón en México se distinguen por su producción, superficie cosechada y rendimiento anual en el periodo 2003–2025, y en qué grupo se ubican los municipios de Colima?** 
+| Factor | Descripción | Niveles o forma esperada |
+| :--- | :--- | :--- |
+| **Mes del año** | Efecto estacional de la temporada | 1 a 12 |
+| **Semana del año** | Variación intraanual más granular | 1 a 52 |
+| **Precio rezagado** | Dependencia temporal del precio | rezagos de 1, 2, 4 y 8 semanas |
+| **Producción anual** | Volumen total municipal | toneladas por municipio/año |
+| **Superficie cosechada** | Área asociada a la producción | hectáreas por municipio/año |
+| **Rendimiento municipal** | Producción por hectárea | toneladas/hectárea por municipio/año |
 
-Los grupos se formarán a partir de esas variables normalizadas y se compararán por sus perfiles y evolución anual. Los precios SNIIM corresponden a mercados y no se atribuirán directamente a un municipio sin una fuente que sustente esa relación.
+### E3: Comparación de municipios productores
+> **¿Qué diferencias existen entre municipios productores de México definidos conjuntamente por producción, superficie cosechada y rendimiento, en sus perfiles agrícolas anuales según el SIAP (2003–2025)?**
+
+Los grupos se formarán a partir de esas variables normalizadas y se compararán por sus perfiles y evolución anual en un conjunto de municipios productores de todo México. Esto permite evaluar si los patrones agrícolas observados en Colima forman parte de un comportamiento más amplio o si son específicos del estado. Los precios SNIIM corresponden a mercados y no se atribuirán directamente a un municipio sin una fuente que sustente esa relación.
 
 ---
 
@@ -112,7 +123,7 @@ El proyecto integra precios de mercado del limón y estadísticas de producción
 
 | Fuente | Datos Utilizados | Frecuencia Configurada | Periodicidad de los Datos |
 | :--- | :--- | :--- | :--- |
-| **SNIIM** | Precios de limón con semilla, calidad primera, por mercado consultado. | GitHub Actions corre cada lunes a las 12:00 UTC y consulta los últimos 14 días. Hay una captura histórica local de 36 periodos mensuales consecutivos, de noviembre de 2023 a octubre de 2026. | La publicación depende del SNIIM; las consultas recientes pueden recuperar actualizaciones o correcciones. |
+| **SNIIM** | Precios de limón con semilla, calidad primera, por mercado consultado. | GitHub Actions corre cada lunes a las 12:00 UTC y consulta los últimos 14 días. Hay una captura histórica local de 36 periodos mensuales consecutivos, de noviembre de 2023 a octubre de 2026, y capturas recientes actualizadas al 7 de noviembre de 2026. | La publicación depende del SNIIM; las consultas recientes pueden recuperar actualizaciones o correcciones. |
 | **SIAP** | Producción agrícola, superficie cosechada y rendimiento anual municipal; cierres disponibles de 2003 a 2025 y diccionario. | El workflow revisa la fuente cada lunes; el capturador omite archivos de años ya existentes e incorpora años nuevos disponibles. | Anual |
 
 ### 5.4. Calidad y Trazabilidad
@@ -131,6 +142,6 @@ Para asegurar la calidad del software y la gestión del proyecto, se establecen 
 
 | Métrica | Cálculo | Meta |
 | :--- | :--- | :--- |
-| **Tiempo promedio de reparación** | Suma de `TiempoReparacion(min)` ÷ Total de defectos reparados | $\le 30 \text{ min por defecto (mensual)}$ |
-| **Defectos removidos en fase posterior** | `(Defectos con FaseRemovido > FaseInyectado ÷ Total de defectos) × 100` | $\le 20\% \text{ mensual}$ *(Fases: Plan → ETL → Test → Docs)* |
-| **Porcentaje de tiempo neto** | `(Suma de TiempoNeto(min) ÷ Suma de tiempo transcurrido) × 100` | $\ge 85\% \text{ semanal}$ |
+| **Tiempo promedio de reparación** | Suma del tiempo de reparación entre el total de defectos reparados | 30 minutos por defecto al mes |
+| **Defectos removidos en la misma fase o la siguiente** | Porcentaje de defectos corregidos en la misma fase de inyección o en la fase inmediata siguiente | 80% mensual mínimo *(Fases: Plan, ETL, Test, Docs)* |
+| **Porcentaje de tiempo neto** | Proporción del tiempo neto respecto al tiempo total transcurrido | 85% semanal mínimo |

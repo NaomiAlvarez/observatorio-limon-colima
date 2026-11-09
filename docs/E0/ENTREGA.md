@@ -33,7 +33,7 @@
 - [ ] Tag `e0` creado y publicado para la versión final de la entrega.
 
 ### 2. Extracción de Datos (ETL Bronce)
-- [x] Extractor `src/sniim_captura.py` desarrollado y ejecutado para obtener 36 periodos mensuales históricos consecutivos (noviembre de 2023–octubre de 2026); las 36 capturas mensuales constan como exitosas en la bitácora local.
+- [x] Extractor `src/sniim_captura.py` desarrollado y ejecutado para obtener 36 periodos mensuales históricos consecutivos (noviembre de 2023–octubre de 2026), además de capturas recientes actualizadas al 7 de noviembre de 2026; las capturas constan como exitosas en la bitácora local.
 - [x] Extractor `src/siap_captura.py` desarrollado y ejecutado para obtener datos anuales de producción municipal (2003–2025).
 - [x] Archivos descargados y respaldados en `data/bronce/` con bitácoras de trazabilidad (URL, fecha y SHA-256).
 
@@ -44,13 +44,13 @@
 ### 4. Propuesta y Análisis Contextual
 - [x] Análisis ético de fuentes y revisión de `robots.txt` para SNIIM y SIAP.
 - [x] Entrevista de 15 minutos documentada con cinco preguntas explícitas y aprendizajes.
-- [x] Redacción de las tres preguntas conforme a los objetivos E1 (variable a pronosticar), E2 (factores a experimentar) y E3 (grupos multivariados a comparar).
+- [x] Redacción de las tres preguntas conforme a los objetivos E1 (precio semanal del limón con semilla, calibre 4 y calidad primera), E2 (factores a experimentar) y E3 (comparación de municipios productores de México).
 - [x] Arquitectura de datos descrita bajo el modelo Medallion, distinguiendo Bronce implementada y Plata/Oro planeadas, aún no implementadas.
 - [x] Ficha del observatorio con sector, región, pregunta detonadora y cliente potencial.
 
 ### 5. Calidad y Proceso Personal de Software (PSP)
 - [x] Archivos `calidad/tiempo-<nombre>.csv` y `calidad/defectos-<nombre>.csv` creados e inicializados por cada integrante.
-- [x] Definición de 3 objetivos de calidad medibles (tiempo de reparación, defectos en fase posterior y % de tiempo neto).
+- [x] Definición de 3 objetivos de calidad medibles: tiempo de reparación, defectos removidos en la misma fase o la siguiente y porcentaje de tiempo neto.
 
 ## Pendientes para cerrar la entrega
 

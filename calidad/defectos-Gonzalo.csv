@@ -1,1 +1,3 @@
 Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
+2026-11-07,Contenido,ETL,Test,120,"Había registros faltantes del histórico de 36 meses. Se volvió a correr el histórico delimitando bien las fechas a consultar."
+2026-11-07,Automatización,ETL,Test,240,"Se detectó que no se había ejecutado correctamente el workflow en GitHub. Se ejecutó nuevamente y en esta ocasión se realizó con éxito."
