@@ -1,1 +1,7 @@
 Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
+2026-11-07,Test,17:00,17:10,0,10,Correr nuevamente el histórico de SNIIM y de SIAP y subirlo
+2026-11-07,Test,17:10,17:25,0,15,Ejecutar el workflow en la pestaña Actions y que salga bien
+2026-11-08,Plan,13:00,13:30,1,30,Entrevista a un productor de limón
+2026-11-08,ETL,18:00,19:30,4,90,Crear los registros PSP definiendo las columnas de cada uno
+2026-11-08,ETL,19:45,20:10,0,25,Definición de los 3 objetivos de calidad medibles
+2026-11-08,ETL,20:10,23:00,2,170,"Redacción de los archivos propuesta.md, readme.md y entrega.md"

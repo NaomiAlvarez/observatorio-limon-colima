@@ -1,8 +1,8 @@
 # Observatorio del Precio del Limón en Colima
 
 Proyecto académico para recopilar y analizar precios al mayoreo del limón con
-semilla y estadísticas municipales de producción agrícola, con enfoque en
-Colima.
+semilla, calibre 4 y calidad primera, junto con estadísticas municipales de
+producción agrícola para apoyar la toma de decisiones en el sector citrícola.
 
 ## Estructura actual del repositorio
 
@@ -69,8 +69,10 @@ lunes a las 12:00 UTC, y también puede iniciarse manualmente. En cada ejecució
 3. Registra las capturas en `data/bronce/` y guarda los cambios en el
    repositorio cuando haya datos nuevos.
 
-La frecuencia de ejecución no implica que las fuentes publiquen datos nuevos
-en cada consulta.
+La captura histórica local incluye 36 periodos mensuales consecutivos
+(noviembre de 2023 a octubre de 2026), además de registros recientes
+actualizados al 7 de noviembre de 2026. La frecuencia de ejecución no implica
+que las fuentes publiquen datos nuevos en cada consulta.
 
 ## Ejecución local
 
@@ -88,10 +90,20 @@ recaptura. Ejecuta `python src/sniim_captura.py --help` y
 
 ## Documentación y calidad
 
-- `docs/E0/propuesta.md`: propuesta de la entrega E0.
+- `docs/E0/propuesta.md`: propuesta final de la entrega E0, con las preguntas
+  de investigación E1, E2 y E3 y la arquitectura de datos.
 - `docs/E0/ENTREGA.md`: estado y checklist de la entrega.
 - `calidad/`: plantillas CSV para registrar tiempo y defectos de Naomi y
   Gonzalo.
+
+Las preguntas de investigación del proyecto son:
+
+- E1: precio promedio semanal del limón con semilla, calibre 4 y calidad
+  primera en los mercados SNIIM.
+- E2: evaluación del error de pronóstico al incorporar factores temporales,
+  rezagos y variables anuales del SIAP.
+- E3: comparación de grupos de municipios productores de México según
+  producción, superficie cosechada y rendimiento.
 
 Antes de redistribuir datos descargados o derivados, verifica las condiciones
 de uso aplicables de cada fuente y respeta sus políticas de acceso.
