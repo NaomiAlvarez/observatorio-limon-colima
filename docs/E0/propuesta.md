@@ -3,7 +3,7 @@
 ## 1. Ficha del Proyecto
 
 * **Nombre del Proyecto:** Observatorio del Precio del Limón en Colima
-* **Organización / Institución:** Instituto Tecnológico Nacional de México - Campus Colima
+* **Organización / Institución:** Tecnológico Nacional de México - Campus Colima
 * **Sector:** Agrícola, específicamente producción y comercialización de limón con semilla.
 * **Región:** Estado de Colima, con énfasis en Tecomán y los municipios productores; los precios se consultan para los mercados y destinos disponibles en SNIIM.
 * **Pregunta detonadora:** ¿Cómo pueden los productores y comerciantes de limón de Colima usar el historial de precios al mayoreo y producción agrícola para planear y negociar con mayor información?
@@ -11,7 +11,7 @@
 * **Repositorio en GitHub:** `observatorio-limon-colima`
 * **Rama principal:** `main`
 * **Integrantes del Equipo:**
-  * Naomi Álvarez Neri
+  * Laura Naomi Álvarez Neri
   * Gonzalo Fletes Vázquez
 * **Fecha de Entrega:** Lunes, 9 de noviembre de 2026
 
@@ -82,7 +82,7 @@ La transcripción contiene cinco preguntas explícitas del equipo y los aprendiz
 ## 4. Preguntas de Investigación
 
 ### E1: Variable a pronosticar
-> **¿Cuál será el precio promedio semanal (MXN/kg) del limón con semilla, calidad primera, reportado por el SNIIM para cada mercado consultado durante las próximas cuatro semanas?**
+> **¿Cuál será el precio promedio semanal (MXN/kg) del limón con semilla # 4, calidad Primera, reportado por el SNIIM en los mercados consultados, durante las próximas cuatro semanas?**
 
 **Variable objetivo:** precio promedio semanal en MXN/kg por mercado. Se usarán los últimos 36 meses disponibles como serie histórica; el periodo exacto y los mercados incluidos deberán anotarse al construir el conjunto analítico.
 
