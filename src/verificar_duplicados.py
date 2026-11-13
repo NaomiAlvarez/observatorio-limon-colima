@@ -1,6 +1,8 @@
+from pathlib import Path
 import pandas as pd
 
-d = pd.read_parquet("data/plata/sniim_diario_homologado.parquet")
+RAIZ = Path(__file__).resolve().parent.parent
+d = pd.read_parquet(RAIZ / "data/plata/sniim_diario_homologado.parquet")
 claves = ["fecha", "presentacion", "origen_estado", "destino_mercado"]
 
 distintos = d.groupby(claves)["precio_frec"].nunique()

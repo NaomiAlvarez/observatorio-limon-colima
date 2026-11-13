@@ -3,3 +3,5 @@ Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
 2026-11-07,Datos,Plan,ETL,35,URL de consulta de SNIIM incorrecta (404); se obtuvo la URL real de resultados con las herramientas de desarrollador (tiempo estimado)
 2026-11-07,Entorno,ETL,Test,5,Error TLS al consultar el robots.txt de SIAP con PowerShell; se resolvió con Python (tiempo estimado)
 2026-11-07,Entorno,ETL,ETL,5,Comandos ejecutados en la carpeta equivocada (fuera del repositorio) (tiempo estimado)
+2026-11-12,Datos,ETL,Test,15,"Inconsistencia en cotización SNIIM con precio_min > precio_frec; se añadió regla de incoherencia para canalización a cuarentena."
+2026-11-13,Entorno,Test,Test,5,"Fallo de importación en pytest sin sys.path configurado; se creó archivo pytest.ini con pythonpath = ."

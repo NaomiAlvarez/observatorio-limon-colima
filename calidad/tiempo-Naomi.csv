@@ -7,3 +7,8 @@ Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
 2026-11-07,ETL,11:30,12:30,0,60,Extractor SIAP (siap_captura.py) - estimado
 2026-11-07,Test,12:35,12:50,0,15,Carga histórica de SIAP (la bitácora registra la descarga a las 12:41)
 2026-11-07,Test,13:30,14:00,0,30,Carga histórica de SNIIM (los archivos mensuales tienen hora 13:39)
+2026-11-12,ETL,16:00,18:30,1,140,"Desarrollo del módulo de integración (integracion.py): homologación de esquemas SIAP/SNIIM y agregación mensual"
+2026-11-12,ETL,19:00,21:00,0,120,"Desarrollo del módulo de limpieza (limpieza.py): diagnóstico de faltantes, imputación condicional y filtro Hampel"
+2026-11-13,ETL,10:00,12:00,1,110,"Normalización Min-Max/Z-Score, discretización doble y reducción por correlación"
+2026-11-13,Test,15:30,16:30,0,60,"Pruebas unitarias de calidad, verificación de conservación de filas y revisión del pipeline completo"
+2026-11-13,Docs,16:30,18:30,1,110,"Elaboración de la ficha técnica de entrega E1 y relatoría técnica"

@@ -240,8 +240,8 @@ def _guardar_cuarentena(invalidos, fuente, ruta):
         2,
         "registro_id",
         [
-            hashlib.sha256(f"{fuente}:{i}:{hashes.iloc[i]}".encode("utf-8")).hexdigest()
-            for i in invalidos.index
+            hashlib.sha256(f"{fuente}:{pos}:{h}".encode("utf-8")).hexdigest()
+            for pos, h in enumerate(hashes)
         ],
     )
 

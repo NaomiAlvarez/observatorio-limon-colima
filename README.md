@@ -9,7 +9,8 @@ mediante una arquitectura de capas **Bronce → Plata → Oro**.
 | Entrega | Contenido | Tag | Estado |
 |---|---|---|---|
 | E0 | Ingesta y capa Bronce (datos crudos con bitácora) | `e0` | Entregada |
-| E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad, capas Plata y Oro | `e1` | En curso |
+| E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad y capa Plata | `e1` | Completa (Lista para entrega) |
+| E2 | Experimentación, factores y capa Oro | `e2` | Por iniciar |
 
 Avance de la E1:
 
@@ -20,8 +21,8 @@ Avance de la E1:
 - [x] Discretización y jerarquías conceptuales
 - [x] Reducción de datos (agregación y selección de variables)
 - [x] Puerta de Calidad automática con cuarentena (Pandera)
-- [ ] Capa Oro
-- [ ] Ficha técnica (`docs/E1/ENTREGA.md`) y relatoría (`docs/relatoria-E1.md`)
+- [x] Ficha técnica (`docs/E1/ENTREGA.md`) y relatoría (`docs/relatoria-E1.md`)
+- [x] Cuaderno interactivo de exploración (`docs/E1/limpieza.ipynb`)
 
 ## Fuentes de datos
 
