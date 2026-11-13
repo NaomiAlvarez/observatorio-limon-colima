@@ -1,0 +1,45 @@
+fecha,anio,anio_mes,producto,presentacion,origen_estado,destino_mercado,destino_estado,precio_min,precio_max,precio_frec,archivo_origen,es_duplicado,es_atipico,precio_min_corr,precio_max_corr,precio_frec_corr,precio_incoherente
+2025-03-05,2025,2025-03-01,limon_c_semilla_4_primera,caja de 19 kg.,colima,Sonora: Central de Abasto de Cd. Obregón,sonora,21.05,21.05,20.53,2025-03-01_2025-03-31.html,False,False,21.05,21.05,20.53,True
+2026-01-07,2026,2026-01-01,limon_c_semilla_4_primera,caja de 19 kg.,colima,Sonora: Central de Abasto de Cd. Obregón,sonora,16.84,18.42,16.84,2026-01-01_2026-01-31.html,False,True,16.84,18.42,24.74,False
+2023-11-06,2023,2023-11-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,24.21,27.89,24.74,2023-11-01_2023-11-30.html,False,True,24.21,25.0,24.74,False
+2024-03-01,2024,2024-03-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,17.89,22.37,19.47,2024-03-01_2024-03-31.html,False,True,17.89,25.26,19.47,False
+2024-08-19,2024,2024-08-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,28.95,36.84,31.58,2024-08-01_2024-08-31.html,False,True,28.95,32.37,31.58,False
+2024-08-23,2024,2024-08-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,24.74,32.37,28.42,2024-08-01_2024-08-31.html,False,True,28.42,32.37,28.42,False
+2024-09-11,2024,2024-09-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,41.05,45.79,42.63,2024-09-01_2024-09-30.html,False,True,36.84,45.79,42.63,False
+2025-08-07,2025,2025-08-01,limon_c_semilla_4_primera,arpilla de 19 kg.,michoacan,DF: Central de Abasto de Iztapalapa DF,df,19.47,37.89,20.53,2025-08-01_2025-08-31.html,False,True,19.47,24.74,20.53,False
+2024-04-02,2024,2024-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,21.0,26.0,24.0,2024-04-01_2024-04-30.html,False,True,21.0,21.5,24.0,False
+2024-04-03,2024,2024-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,21.0,26.0,24.0,2024-04-01_2024-04-30.html,False,True,21.0,21.5,24.0,False
+2024-04-04,2024,2024-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,21.0,26.0,24.0,2024-04-01_2024-04-30.html,False,True,21.0,22.0,24.0,False
+2024-04-05,2024,2024-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,21.0,26.0,24.0,2024-04-01_2024-04-30.html,False,True,21.0,22.0,24.0,False
+2025-03-04,2025,2025-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,19.0,25.5,23.5,2025-03-01_2025-03-31.html,False,True,19.0,22.0,23.5,False
+2025-03-05,2025,2025-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,19.0,25.5,23.5,2025-03-01_2025-03-31.html,False,True,19.0,22.0,23.5,False
+2025-03-06,2025,2025-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,19.0,25.5,23.5,2025-03-01_2025-03-31.html,False,True,19.0,22.0,23.5,False
+2025-04-07,2025,2025-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,18.5,19.5,19.0,2025-04-01_2025-04-30.html,False,True,18.5,16.5,19.0,False
+2025-04-08,2025,2025-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,18.5,19.5,19.0,2025-04-01_2025-04-30.html,False,True,15.5,16.5,16.0,False
+2025-04-09,2025,2025-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,18.5,19.5,19.0,2025-04-01_2025-04-30.html,False,True,15.5,19.5,15.5,False
+2025-04-10,2025,2025-04-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,18.5,19.5,19.0,2025-04-01_2025-04-30.html,False,True,18.5,19.5,15.5,False
+2026-03-03,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,29.5,31.0,30.0,2026-03-01_2026-03-31.html,False,True,29.5,28.0,30.0,False
+2026-03-04,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,29.5,31.0,30.0,2026-03-01_2026-03-31.html,False,True,29.5,27.5,30.0,False
+2026-03-05,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,29.5,31.0,30.0,2026-03-01_2026-03-31.html,False,True,29.5,27.5,30.0,False
+2026-03-06,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,29.5,31.0,30.0,2026-03-01_2026-03-31.html,False,True,25.0,27.5,30.0,False
+2026-07-07,2026,2026-07-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,22.5,23.0,22.5,2026-07-01_2026-07-31.html,False,True,22.5,17.0,16.5,False
+2026-07-08,2026,2026-07-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,22.5,23.0,22.5,2026-07-01_2026-07-31.html,False,True,16.5,17.0,16.5,False
+2026-09-02,2026,2026-09-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,26.5,29.0,27.5,2026-09-01_2026-09-30.html,False,True,21.0,29.0,24.0,False
+2026-09-03,2026,2026-09-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,26.5,29.0,27.5,2026-09-01_2026-09-30.html,False,True,21.0,29.0,24.0,False
+2026-09-04,2026,2026-09-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,26.5,29.0,27.5,2026-09-01_2026-09-30.html,False,True,21.0,29.0,27.5,False
+2026-09-07,2026,2026-09-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,25.0,26.0,26.0,2026-09-01_2026-09-30.html,False,True,21.0,26.0,26.0,False
+2026-11-04,2026,2026-11-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,10.0,11.0,10.0,2026-10-25_2026-11-07.html,False,True,10.0,13.0,13.0,False
+2026-11-05,2026,2026-11-01,limon_c_semilla_4_primera,caja de 20 kg.,michoacan,México: Central de Abasto de Ecatepec,mexico,10.0,11.0,10.0,2026-10-25_2026-11-07.html,False,True,10.0,11.0,13.0,False
+2025-04-30,2025,2025-04-01,limon_c_semilla_4_primera,caja de 20 kg.,sinaloa,Puebla: Central de Abasto de Puebla,puebla,17.5,18.0,17.5,2025-04-01_2025-04-30.html,False,True,12.0,18.0,13.0,False
+2025-05-29,2025,2025-05-01,limon_c_semilla_4_primera,caja de 20 kg.,sinaloa,Puebla: Central de Abasto de Puebla,puebla,7.0,10.0,8.0,2025-05-01_2025-05-31.html,False,True,7.0,10.0,11.0,False
+2026-03-04,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,sinaloa,Puebla: Central de Abasto de Puebla,puebla,31.0,33.0,32.0,2026-03-01_2026-03-31.html,False,True,25.0,27.0,26.0,False
+2026-03-05,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,sinaloa,Puebla: Central de Abasto de Puebla,puebla,31.0,33.0,32.0,2026-03-01_2026-03-31.html,False,True,25.0,27.0,26.0,False
+2026-03-06,2026,2026-03-01,limon_c_semilla_4_primera,caja de 20 kg.,sinaloa,Puebla: Central de Abasto de Puebla,puebla,31.0,33.0,32.0,2026-03-01_2026-03-31.html,False,True,25.0,33.0,32.0,False
+2024-05-03,2024,2024-05-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,18.0,22.0,18.0,2024-05-01_2024-05-31.html,False,True,13.0,22.0,18.0,False
+2024-07-05,2024,2024-07-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,5.0,10.0,10.0,2024-07-01_2024-07-31.html,False,True,10.0,10.0,10.0,False
+2024-07-09,2024,2024-07-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,6.0,10.0,10.0,2024-07-01_2024-07-31.html,False,True,10.0,10.0,10.0,False
+2024-08-20,2024,2024-08-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,20.0,24.0,22.0,2024-08-01_2024-08-31.html,False,True,20.0,18.0,22.0,False
+2024-10-07,2024,2024-10-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,18.0,20.0,19.0,2024-10-01_2024-10-31.html,False,True,10.0,20.0,13.0,False
+2024-10-09,2024,2024-10-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,18.0,20.0,19.0,2024-10-01_2024-10-31.html,False,True,10.0,20.0,13.0,False
+2024-12-16,2024,2024-12-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,5.0,6.0,5.0,2024-12-01_2024-12-31.html,False,True,5.0,6.0,8.0,False
+2024-12-18,2024,2024-12-01,limon_c_semilla_4_primera,kilogramo,sinaloa,Puebla: Central de Abasto de Puebla,puebla,5.0,7.0,5.0,2024-12-01_2024-12-31.html,False,True,5.0,7.0,8.0,False
