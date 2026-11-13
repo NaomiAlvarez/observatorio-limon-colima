@@ -1,1 +1,9 @@
 requests
+pandas
+numpy
+pyarrow
+lxml
+beautifulsoup4
+html5lib
+openpyxl
+pandera
