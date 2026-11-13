@@ -1,109 +1,149 @@
-# Observatorio del Precio del Limón en Colima
+# Observatorio del precio del limón en Colima
 
-Proyecto académico para recopilar y analizar precios al mayoreo del limón con
-semilla, calibre 4 y calidad primera, junto con estadísticas municipales de
-producción agrícola para apoyar la toma de decisiones en el sector citrícola.
+Proyecto integrador de **Ingeniería de Datos** (Tecnológico Nacional de México, Campus Colima).
+Integra el precio al mayoreo del limón (SNIIM) con la producción agrícola municipal (SIAP)
+mediante una arquitectura de capas **Bronce → Plata → Oro**.
 
-## Estructura actual del repositorio
+## Estado de las entregas
 
-```text
+| Entrega | Contenido | Tag | Estado |
+|---|---|---|---|
+| E0 | Ingesta y capa Bronce (datos crudos con bitácora) | `e0` | Entregada |
+| E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad, capas Plata y Oro | `e1` | En curso |
+
+Avance de la E1:
+
+- [x] Integración y resolución de conflictos de esquema (SNIIM + SIAP)
+- [x] Valores faltantes: diagnóstico del mecanismo e imputación
+- [x] Atípicos y ruido (Z-Score robusto con ventana móvil, IQR)
+- [x] Normalización y estandarización (Min-Max y Z-Score)
+- [x] Discretización y jerarquías conceptuales
+- [x] Reducción de datos (agregación y selección de variables)
+- [ ] Puerta de Calidad automática con cuarentena (Pandera) — en desarrollo
+- [ ] Capa Oro
+- [ ] Ficha técnica (`docs/E1/ENTREGA.md`) y relatoría (`docs/relatoria-E1.md`)
+
+## Fuentes de datos
+
+| Fuente | Qué contiene | Formato en Bronce | Granularidad |
+|---|---|---|---|
+| **SNIIM** (Mercados Nacionales Agrícolas) | Precios al mayoreo de *Limón c/semilla # 4 Primera*, en pesos por kilogramo calculado, con presentación, origen (estado productor) y destino (mercado) | HTML, uno por rango de fechas | Diaria, por mercado |
+| **SIAP** (Cierre agrícola municipal) | Superficie sembrada y cosechada, producción, rendimiento, precio rural y valor de la producción | `cierre_AAAA.csv.gz` (2003–2025) | Anual, por municipio |
+
+Cada fuente trae su `_bitacora.csv` de descarga (URL, fecha de captura, `sha256`, resultado), que se conserva para trazabilidad.
+El SIAP aún no publica 2026.
+
+## Arquitectura de capas
+
+| Capa | Carpeta | Contenido |
+|---|---|---|
+| Bronce | `data/bronce/` | Datos tal como se descargaron, sin modificar |
+| Plata | `data/plata/` | Datos homologados, limpios y validados |
+| Cuarentena | `data/cuarentena/` | Registros rechazados, con el motivo documentado (nunca se borran en silencio) |
+| Oro | `data/oro/` | Tablas agregadas listas para el análisis del observatorio |
+
+## Estructura del repositorio
+
+```
 observatorio-limon-colima/
-├── .github/
-│   └── workflows/
-│       └── captura.yml                  # Captura automática semanal
-├── calidad/
-│   ├── defectos-Gonzalo.csv
-│   ├── defectos-Naomi.csv
-│   ├── tiempo-Gonzalo.csv
-│   └── tiempo-Naomi.csv
 ├── data/
-│   └── bronce/                          # Única capa de datos implementada
-│       ├── siap/
-│       │   ├── _bitacora.csv
-│       │   ├── diccionario_datos_municipal.xlsx
-│       │   └── municipal/
-│       │       └── cierre_<año>.csv.gz
-│       └── sniim/
-│           ├── _bitacora.csv
-│           ├── _robots_<fecha>.txt
-│           └── limon_c_semilla_4_primera/
-│               └── <fecha_inicio>_<fecha_fin>.html
-├── docs/
-│   └── E0/
-│       ├── ENTREGA.md
-│       └── propuesta.md
+│   ├── bronce/
+│   │   ├── sniim/            # HTML por rango de fechas + bitácora
+│   │   └── siap/             # diccionario, bitácora y municipal/*.csv.gz
+│   ├── plata/
+│   ├── cuarentena/
+│   └── oro/
 ├── src/
-│   ├── extractor.py                    # Archivo vacío, reservado
-│   ├── siap_captura.py                 # Captura datos del SIAP
-│   └── sniim_captura.py                # Captura consultas del SNIIM
-├── .gitignore
-├── README.md
-└── requirements.txt
+│   ├── integracion.py        # lectura, homologación, agregación y fusión
+│   ├── limpieza.py           # faltantes, atípicos, normalización, discretización, reducción
+│   ├── calidad.py            # Puerta de Calidad (Pandera) y cuarentena
+│   ├── pipeline.py           # orquesta todo el flujo
+│   └── verificar_duplicados.py
+├── docs/
+│   ├── E1/
+│   │   ├── limpieza.ipynb
+│   │   └── ENTREGA.md
+│   └── relatoria-E1.md
+├── requirements.txt
+└── README.md
 ```
 
-Los nombres entre `< >` representan patrones, no nombres literales. Bronce
-conserva las respuestas de origen y las bitácoras de captura. SIAP guarda los
-cierres anuales comprimidos sin pérdida; SNIIM guarda las respuestas HTML por
-intervalo consultado.
+## Requisitos e instalación
 
-## Estado de las capas de datos
+Python 3.10 o superior.
 
-El proyecto plantea una arquitectura tipo Medallion:
-
-- **Bronce (`data/bronce/`): implementada.** Capturas originales y bitácoras.
-- **Plata (`data/plata/`): pendiente.** No existe todavía; se destinará a
-  extracción, limpieza, normalización y validación de los datos.
-- **Oro (`data/oro/`): pendiente.** No existe todavía; se destinará a
-  indicadores y agregaciones listos para análisis.
-
-Por lo tanto, actualmente no hay scripts ni resultados de procesamiento en
-Plata u Oro. `src/extractor.py` está vacío y no realiza transformaciones.
-
-## Captura automática
-
-El workflow de GitHub Actions (`.github/workflows/captura.yml`) se ejecuta cada
-lunes a las 12:00 UTC, y también puede iniciarse manualmente. En cada ejecución:
-
-1. Consulta los últimos 14 días de precios disponibles en SNIIM.
-2. Comprueba SIAP e incorpora los años que aún no estén descargados.
-3. Registra las capturas en `data/bronce/` y guarda los cambios en el
-   repositorio cuando haya datos nuevos.
-
-La captura histórica local incluye 36 periodos mensuales consecutivos
-(noviembre de 2023 a octubre de 2026), además de registros recientes
-actualizados al 7 de noviembre de 2026. La frecuencia de ejecución no implica
-que las fuentes publiquen datos nuevos en cada consulta.
-
-## Ejecución local
-
-Instala las dependencias y ejecuta los capturadores desde la raíz del proyecto:
-
-```bash
+```powershell
 pip install -r requirements.txt
-python src/sniim_captura.py --ultimos-dias 14
-python src/siap_captura.py
 ```
 
-Los capturadores también permiten consultar periodos históricos y forzar una
-recaptura. Ejecuta `python src/sniim_captura.py --help` y
-`python src/siap_captura.py --help` para ver sus opciones.
+## Cómo ejecutar el pipeline
 
-## Documentación y calidad
+Desde la raíz del repositorio (la carpeta que contiene `data/` y `src/`):
 
-- `docs/E0/propuesta.md`: propuesta final de la entrega E0, con las preguntas
-  de investigación E1, E2 y E3 y la arquitectura de datos.
-- `docs/E0/ENTREGA.md`: estado y checklist de la entrega.
-- `calidad/`: plantillas CSV para registrar tiempo y defectos de Naomi y
-  Gonzalo.
+```powershell
+python src\pipeline.py
+```
 
-Las preguntas de investigación del proyecto son:
+El script imprime el resumen de cada paso y escribe los resultados en `data/plata/` y `data/cuarentena/`.
 
-- E1: precio promedio semanal del limón con semilla, calibre 4 y calidad
-  primera en los mercados SNIIM.
-- E2: evaluación del error de pronóstico al incorporar factores temporales,
-  rezagos y variables anuales del SIAP.
-- E3: comparación de grupos de municipios productores de México según
-  producción, superficie cosechada y rendimiento.
+## Pipeline de la E1
 
-Antes de redistribuir datos descargados o derivados, verifica las condiciones
-de uso aplicables de cada fuente y respeta sus políticas de acceso.
+| Paso | Módulo | Qué hace |
+|---|---|---|
+| 1. Integración | `integracion.py` | Extrae la tabla de precios de cada HTML del SNIIM, lee los `.csv.gz` del SIAP, homologa nombres, tipos y estados, agrega el SNIIM a mes y estado, y lo une con el SIAP anual por (año, estado productor) |
+| 2. Faltantes | `limpieza.py` | Diagnostica el mecanismo de los nulos e imputa con el último año publicado de cada estado, marcando cada valor imputado |
+| 3. Atípicos | `limpieza.py` | Z-Score robusto (MAD) con ventana móvil sobre el precio diario; IQR informativo sobre el rendimiento del SIAP |
+| 4. Normalización | `limpieza.py` | Columnas `*_minmax` y `*_z`, conservando los valores originales |
+| 5. Discretización | `limpieza.py` | Niveles de precio (frecuencias iguales y anchura igual), niveles de producción y jerarquías temporal y geográfica |
+| 6. Reducción | `limpieza.py` | Agregación (diario → mensual, municipal → estado-año) y eliminación de variables con correlación mayor a 0.95 |
+| 7. Puerta de Calidad | `calidad.py` | Valida esquema y rangos con Pandera; los registros inválidos pasan a cuarentena con su motivo |
+
+### Decisiones principales
+
+- **Filtro de cultivo (SIAP):** se conservan `Limón` y `Limón real`. Se excluyen `Limonium` (flor) y `Té limón`.
+- **Clave de unión:** año y estado **productor** (origen en el SNIIM). El precio queda mensual y la producción anual se repite en los 12 meses de su año.
+- **Duplicados del SNIIM:** algunos HTML se traslapan en fechas. Los duplicados se **marcan** (`es_duplicado`), no se borran, y se excluyen al agregar.
+- **Faltantes:** los nulos del SIAP corresponden únicamente a 2026 (rezago de publicación). El mecanismo es MAR de origen estructural, no MCAR. Se imputa con el último año publicado, porque el limón es un cultivo perenne cuya superficie y producción cambian poco entre años. Cada fila imputada lleva `siap_imputado` y `anio_dato_siap`.
+- **Atípicos:** se marcan (`es_atipico`) y el valor se reemplaza por la mediana móvil en columnas `*_corr`; el valor original se conserva. Los errores lógicos (mínimo mayor que el frecuente, precios menores o iguales a cero) se marcan aparte como `precio_incoherente`.
+- **Estadísticos de normalización del SIAP:** se calculan sobre filas únicas estado-año sin imputar, para no sobreponderar años repetidos en 12 meses.
+
+## Salidas
+
+Capa Plata (`data/plata/`):
+
+| Archivo | Contenido |
+|---|---|
+| `sniim_diario_homologado.parquet` | SNIIM diario homologado, con banderas de duplicado, atípico e incoherencia |
+| `siap_municipal_homologado.parquet` | SIAP municipal homologado (solo limón) |
+| `integrado_sin_validar.parquet` | Integración mensual por estado, antes de imputar |
+| `integrado_imputado.parquet` | Integración con los faltantes imputados |
+| `integrado_transformado.parquet` | Con normalización, discretización y jerarquías |
+| `integrado_reducido.parquet` | Tabla final tras la reducción de variables |
+| `reporte_atipicos_sniim.csv` | Evidencia de atípicos e incoherencias detectados |
+| `*_validado.parquet` | Registros que pasaron la Puerta de Calidad |
+
+Cuarentena (`data/cuarentena/`): un CSV por fuente validada, con las columnas `motivo`, `fuente` y `fecha_cuarentena`.
+
+## Puerta de Calidad
+
+Se implementa con **Pandera** (`src/calidad.py`) y valida tipos, rangos, valores permitidos y unicidad antes de pasar a la capa Plata. La validación se ejecuta con `lazy=True` para reunir todos los fallos de una vez. Los registros inválidos no se eliminan: van a `data/cuarentena/` con el motivo documentado. Se cumple siempre que:
+
+```
+filas de entrada = filas en Plata + filas en cuarentena
+```
+
+La validación del SNIIM diario se hace **antes** de agregar por mes, para que un registro inválido no contamine los promedios.
+
+## Limitaciones conocidas
+
+- Colima aparece como estado de origen en el SNIIM solo desde febrero de 2024 y con pocas cotizaciones.
+- La producción de 2026 es una aproximación (valor de 2025), marcada como imputada.
+- El SNIIM cubre de noviembre de 2023 a octubre de 2026; el SIAP llega hasta 2025.
+
+## Equipo
+
+- Laura Naomi Alvarez Neri
+- Gonzalo Fletes Vazquez 
+
+Materia: Ingeniería de Datos. Docente: Armando Roman Gallardo Heredia.
+Materia: Analisis Estadisticaos para la Ciencia de Datos. Docente: Monico Joel Sanchez Velasco
