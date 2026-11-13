@@ -218,7 +218,7 @@ def homologar_siap(df):
 # Agregación y fusión
 # ---------------------------------------------------------------------
 def agregar_sniim_mensual(sniim_d):
-    sniim_d = sniim_d[~sniim_d["es_duplicado"]]
+    sniim_d = sniim_d[~sniim_d["es_duplicado"] & ~sniim_d["precio_incoherente"]]
     return (sniim_d
             .groupby(["anio_mes", "anio", "origen_estado"],
                      as_index=False, dropna=False)
