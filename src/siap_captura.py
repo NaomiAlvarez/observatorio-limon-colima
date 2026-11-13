@@ -24,6 +24,8 @@ from urllib.robotparser import RobotFileParser
 
 import requests
 
+from metadatos import escribir_metadato
+
 BASE = "https://nube.agricultura.gob.mx"
 VISTA_MUNICIPAL = "10AE434F-A2158368-A120BC5A-EDF4AFAA"      # cierres 2003-2025
 VISTA_DICCIONARIO = "5D24F995-E734D711-1EA6F8D2-9D1387D7"    # diccionario de datos (XLSX)
@@ -94,6 +96,7 @@ def parece_html(contenido):
 
 def capturar(recurso, url, archivo, comprimir, rp, forzar):
     if archivo.exists() and not forzar:
+        escribir_metadato(archivo)
         print(f"[omitido] ya existe {archivo.name}")
         return
     if rp is not None and not rp.can_fetch(USER_AGENT, url):
@@ -122,6 +125,7 @@ def capturar(recurso, url, archivo, comprimir, rp, forzar):
             f.write(r.content)
     else:
         archivo.write_bytes(r.content)
+    escribir_metadato(archivo)
     anotar({**base, "http": r.status_code, "bytes_originales": len(r.content),
             "sha256": hashlib.sha256(r.content).hexdigest(), "archivo": str(archivo),
             "resultado": "ok"})

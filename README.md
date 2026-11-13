@@ -19,7 +19,7 @@ Avance de la E1:
 - [x] Normalización y estandarización (Min-Max y Z-Score)
 - [x] Discretización y jerarquías conceptuales
 - [x] Reducción de datos (agregación y selección de variables)
-- [ ] Puerta de Calidad automática con cuarentena (Pandera) — en desarrollo
+- [x] Puerta de Calidad automática con cuarentena (Pandera)
 - [ ] Capa Oro
 - [ ] Ficha técnica (`docs/E1/ENTREGA.md`) y relatoría (`docs/relatoria-E1.md`)
 
@@ -37,7 +37,7 @@ El SIAP aún no publica 2026.
 
 | Capa | Carpeta | Contenido |
 |---|---|---|
-| Bronce | `data/bronce/` | Datos tal como se descargaron, sin modificar |
+| Bronce | `data/bronce/` | Datos tal como se descargaron, sin modificar, con sidecars JSON de tamaño y SHA-256 |
 | Plata | `data/plata/` | Datos homologados, limpios y validados |
 | Cuarentena | `data/cuarentena/` | Registros rechazados, con el motivo documentado (nunca se borran en silencio) |
 | Oro | `data/oro/` | Tablas agregadas listas para el análisis del observatorio |
@@ -86,6 +86,25 @@ python src\pipeline.py
 
 El script imprime el resumen de cada paso y escribe los resultados en `data/plata/` y `data/cuarentena/`.
 
+### Metadatos de los datos crudos
+
+Cada archivo de datos crudos en `data/bronce/` tiene un sidecar junto al original,
+con sufijo `.metadata.json` (por ejemplo, `cierre_2025.csv.gz.metadata.json`).
+El hash SHA-256 se calcula sobre los bytes almacenados, incluido el archivo
+comprimido. Las bitácoras, los archivos `robots.txt` guardados y `.gitkeep` no
+se consideran lotes de datos. Los extractores actualizan el sidecar al guardar
+una captura; para regenerarlos todos localmente y sin conexión:
+
+```powershell
+python src\metadatos.py
+```
+
+La suite unitaria también es offline y se ejecuta con:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
 ## Pipeline de la E1
 
 | Paso | Módulo | Qué hace |
@@ -122,17 +141,17 @@ Capa Plata (`data/plata/`):
 | `reporte_atipicos_sniim.csv` | Evidencia de atípicos e incoherencias detectados |
 | `*_validado.parquet` | Registros que pasaron la Puerta de Calidad |
 
-Cuarentena (`data/cuarentena/`): un CSV por fuente validada, con las columnas `motivo`, `fuente` y `fecha_cuarentena`.
+Cuarentena (`data/cuarentena/`): un CSV por fuente validada, con las columnas originales, `motivo`, `fuente`, `fecha_cuarentena` y un identificador idempotente para evitar duplicar filas al volver a ejecutar la validación.
 
 ## Puerta de Calidad
 
-Se implementa con **Pandera** (`src/calidad.py`) y valida tipos, rangos, valores permitidos y unicidad antes de pasar a la capa Plata. La validación se ejecuta con `lazy=True` para reunir todos los fallos de una vez. Los registros inválidos no se eliminan: van a `data/cuarentena/` con el motivo documentado. Se cumple siempre que:
+Se implementa con **Pandera** (`src/calidad.py`) y valida esquema y rangos de `sniim_diario_homologado.parquet` e `integrado_reducido.parquet`. La validación se ejecuta con `lazy=True` para reunir todos los fallos de una vez. Los registros válidos se guardan en `sniim_diario_validado.parquet` e `integrado_reducido_validado.parquet`. Las filas inválidas se conservan en `data/cuarentena/` con sus columnas originales y el motivo documentado; los registros archivados no se eliminan ni se duplican al repetir la ejecución. Se comprueba siempre que:
 
 ```
 filas de entrada = filas en Plata + filas en cuarentena
 ```
 
-La validación del SNIIM diario se hace **antes** de agregar por mes, para que un registro inválido no contamine los promedios.
+La puerta se ejecuta al terminar `python src\pipeline.py`, o de forma independiente con `python src\calidad.py`. Las cotizaciones atípicas y duplicadas marcadas se conservan; las cotizaciones con `precio_incoherente=True` van a cuarentena. Las columnas normalizadas se validan por finitud, sin exigir el rango `[0, 1]` a columnas SIAP que pueden exceder el rango de referencia tras imputación.
 
 ## Limitaciones conocidas
 

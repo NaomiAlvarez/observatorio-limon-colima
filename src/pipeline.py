@@ -3,6 +3,7 @@ from pathlib import Path
 from integracion import integrar, agregar_siap_anual
 from limpieza import (diagnostico_faltantes, imputar_faltantes,
                       marcar_atipicos_iqr, normalizar, discretizar, reducir)
+from calidad import validar_archivos
 
 RAIZ = Path(__file__).resolve().parent.parent
 
@@ -48,6 +49,8 @@ def main():
     reducido, eliminadas = reducir(integrado, siap_h, sniim_d)
     reducido.to_parquet(plata / "integrado_reducido.parquet", index=False)
     print("\nColumnas finales:", list(reducido.columns))
+    print("\n===== PUERTA DE CALIDAD =====")
+    validar_archivos(plata, RAIZ / "data/cuarentena")
 
 
 if __name__ == "__main__":

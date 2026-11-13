@@ -23,6 +23,8 @@ from urllib.robotparser import RobotFileParser
 
 import requests
 
+from metadatos import escribir_metadato
+
 BASE = "http://www.economia-sniim.gob.mx"
 RUTA = ("/nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/"
         "ResultadosConsultaFechaFrutasYHortalizas.aspx")
@@ -113,6 +115,7 @@ def anotar(fila):
 def capturar(nombre, pid, ini, fin, rp, forzar):
     archivo = DESTINO / nombre / f"{ini:%Y-%m-%d}_{fin:%Y-%m-%d}.html"
     if archivo.exists() and not forzar:
+        escribir_metadato(archivo)
         print(f"[omitido] ya existe {archivo.name}")
         return
     url = construir_url(pid, ini, fin)
@@ -145,6 +148,7 @@ def capturar(nombre, pid, ini, fin, rp, forzar):
 
     archivo.parent.mkdir(parents=True, exist_ok=True)
     archivo.write_bytes(r.content)          # bytes tal cual: Bronce no se toca
+    escribir_metadato(archivo)
     resultado = "ok"
     if n and n > 1:
         resultado = "ok_con_mas_paginas_sin_capturar"

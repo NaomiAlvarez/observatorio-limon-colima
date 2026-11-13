@@ -5,3 +5,5 @@ Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
 2026-11-08,ETL,18:00,19:30,4,86,Crear los registros PSP definiendo las columnas de cada uno
 2026-11-08,ETL,19:45,20:10,0,25,Definición de los 3 objetivos de calidad medibles
 2026-11-08,Docs,20:10,23:00,2,168,"Redacción de los archivos propuesta.md, readme.md y entrega.md"
+2026-11-13,ETL,12:45,12:51,0,6,"Metadatos SHA-256 por lote crudo, integración en los extractores y generación de 64 sidecars (tiempo estimado según sesión asistida; ajustar al tiempo personal efectivo)"
+2026-11-13,Test,12:51,13:00,0,9,"Puerta de Calidad Pandera para SNIIM e integrado: validación, cuarentena, integración al pipeline, suite offline y verificación de conservación de filas (tiempo estimado según sesión asistida; ajustar al tiempo personal efectivo)"

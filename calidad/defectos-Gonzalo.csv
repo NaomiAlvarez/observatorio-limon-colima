@@ -1,3 +1,4 @@
 Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
 2026-11-07,Contenido,ETL,Test,120,"Había registros faltantes del histórico de 36 meses. Se volvió a correr el histórico delimitando bien las fechas a consultar."
 2026-11-07,Automatización,ETL,Test,240,"Se detectó que no se había ejecutado correctamente el workflow en GitHub. Se ejecutó nuevamente y en esta ocasión se realizó con éxito."
+2026-11-13,Codificación,ETL,Test,2,"La conversión de fallos de Pandera duplicaba los motivos de chequeos entre columnas; se corrigió la asociación de motivos por fila y se verificó con pruebas unitarias (tiempo de reparación estimado)."
