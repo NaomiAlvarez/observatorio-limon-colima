@@ -9,8 +9,8 @@ mediante una arquitectura de capas **Bronce → Plata → Oro**.
 | Entrega | Contenido | Tag | Estado |
 |---|---|---|---|
 | E0 | Ingesta y capa Bronce (datos crudos con bitácora) | `e0` | Entregada |
-| E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad y capa Plata | `e1` | Completa (Lista para entrega) |
-| E2 | Experimentación, factores y capa Oro | `e2` | Por iniciar |
+| E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad y capa Plata | `e1` | Entregada |
+| E2 | Fuente especializada (geoespacial/clima), Capa Oro y Linaje Bronce-Plata-Oro | `e2` | Fase técnica completada |
 
 Avance de la E1:
 
@@ -24,24 +24,34 @@ Avance de la E1:
 - [x] Ficha técnica (`docs/E1/ENTREGA.md`) y relatoría (`docs/relatoria-E1.md`)
 - [x] Cuaderno interactivo de exploración (`docs/E1/limpieza.ipynb`)
 
+Avance de la E2:
+
+- [x] Fuente especializada: API agroclimática Open-Meteo y georreferenciación oficial de orígenes y destinos
+- [x] Distancias geodésicas de transporte (Haversine) huerta $\rightarrow$ central de abasto y spreads de precio
+- [x] Linaje y trazabilidad estricta Bronce $\rightarrow$ Plata $\rightarrow$ Oro (en cada registro y en matriz de auditoría)
+- [x] Conservación demostrada de fechas de ingesta y hashes SHA-256 originales sin sobreescritura
+- [x] Capa Oro implementada (`oro_serie_mensual_observatorio`, `oro_mercados_geoespacial`, `oro_linaje_matriz`)
+- [x] Suite de pruebas automatizada ampliada a 13 pruebas unitarias (`pytest -v`)
+
 ## Fuentes de datos
 
 | Fuente | Qué contiene | Formato en Bronce | Granularidad |
 |---|---|---|---|
 | **SNIIM** (Mercados Nacionales Agrícolas) | Precios al mayoreo de *Limón c/semilla # 4 Primera*, en pesos por kilogramo calculado, con presentación, origen (estado productor) y destino (mercado) | HTML, uno por rango de fechas | Diaria, por mercado |
 | **SIAP** (Cierre agrícola municipal) | Superficie sembrada y cosechada, producción, rendimiento, precio rural y valor de la producción | `cierre_AAAA.csv.gz` (2003–2025) | Anual, por municipio |
+| **Open-Meteo** (API Agroclimática Geoespacial) | Temperatura media, mínima, máxima (°C) y precipitación acumulada (mm) georreferenciada por coordenadas exactas de las zonas productoras | JSON crudo por estado | Diaria, por zona citrícola |
+| **Catálogo Geoespacial** | Georreferenciación oficial de huertas y mercados y cálculo geodésico de distancias de transporte (Haversine) | Catálogo en código | Por ruta origen-destino |
 
-Cada fuente trae su `_bitacora.csv` de descarga (URL, fecha de captura, `sha256`, resultado), que se conserva para trazabilidad.
-El SIAP aún no publica 2026.
+Cada fuente trae su `_bitacora.csv` de descarga (URL, fecha de captura, `sha256`, resultado), que se conserva para trazabilidad y auditoría de linaje.
 
 ## Arquitectura de capas
 
 | Capa | Carpeta | Contenido |
 |---|---|---|
-| Bronce | `data/bronce/` | Datos tal como se descargaron, sin modificar, con sidecars JSON de tamaño y SHA-256 |
-| Plata | `data/plata/` | Datos homologados, limpios y validados |
+| Bronce | `data/bronce/` | Datos tal como se descargaron (SNIIM, SIAP, Clima), sin modificar, con sidecars JSON de tamaño y SHA-256 |
+| Plata | `data/plata/` | Datos homologados, limpios, reducidos y validados por Pandera con linaje |
 | Cuarentena | `data/cuarentena/` | Registros rechazados, con el motivo documentado (nunca se borran en silencio) |
-| Oro | `data/oro/` | Tablas agregadas listas para el análisis del observatorio |
+| Oro | `data/oro/` | Tablas analíticas (`oro_serie_mensual_observatorio`, `oro_mercados_geoespacial`) y matriz de linaje (`oro_linaje_matriz`) |
 
 ## Estructura del repositorio
 
@@ -49,22 +59,35 @@ El SIAP aún no publica 2026.
 observatorio-limon-colima/
 ├── data/
 │   ├── bronce/
-│   │   ├── sniim/            # HTML por rango de fechas + bitácora
-│   │   └── siap/             # diccionario, bitácora y municipal/*.csv.gz
-│   ├── plata/
-│   ├── cuarentena/
-│   └── oro/
+│   │   ├── sniim/            # HTML por rango de fechas + bitácora + metadata
+│   │   ├── siap/             # municipal/*.csv.gz + bitácora + metadata
+│   │   └── clima/            # JSON Open-Meteo por estado + bitácora + metadata
+│   ├── plata/                # Parquet limpios e integrados con linaje a Bronce
+│   ├── cuarentena/           # Registros rechazados con motivo e ID SHA-256
+│   └── oro/                  # Tablas analíticas y matriz de linaje extremo a extremo
 ├── src/
-│   ├── integracion.py        # lectura, homologación, agregación y fusión
+│   ├── extractor.py          # orquestador de captura de las 3 fuentes
+│   ├── sniim_captura.py      # extractor SNIIM
+│   ├── siap_captura.py       # extractor SIAP
+│   ├── clima_captura.py      # extractor API Open-Meteo (fuente especializada)
+│   ├── geoespacial.py        # catálogo de coordenadas y distancias Haversine
+│   ├── integracion.py        # lectura, homologación, agregación y fusión con linaje
 │   ├── limpieza.py           # faltantes, atípicos, normalización, discretización, reducción
-│   ├── calidad.py            # Puerta de Calidad (Pandera) y cuarentena
-│   ├── pipeline.py           # orquesta todo el flujo
+│   ├── calidad.py            # Puerta de Calidad (Pandera Plata y Oro) y cuarentena
+│   ├── oro.py                # generación de Capa Oro y auditoría de linaje Bronce -> Oro
+│   ├── pipeline.py           # orquesta todo el flujo Medallion (Bronce -> Plata -> Oro)
+│   ├── metadatos.py          # genera sidecars SHA-256 en Bronce
 │   └── verificar_duplicados.py
+├── tests/
+│   ├── test_calidad.py       # pruebas de esquemas Pandera y cuarentena
+│   ├── test_geoespacial.py   # pruebas de geodatos y fórmula Haversine
+│   ├── test_linaje.py        # pruebas de linaje estricto y conservación de fechas
+│   └── test_metadatos.py     # pruebas de sidecars y hashes SHA-256
 ├── docs/
-│   ├── E1/
-│   │   ├── limpieza.ipynb
-│   │   └── ENTREGA.md
-│   └── relatoria-E1.md
+│   ├── E0/                   # propuesta y entrega E0
+│   ├── E1/                   # ficha técnica y cuaderno E1
+│   └── relatoria-E1.md       # relatoría PSP
+├── pytest.ini
 ├── requirements.txt
 └── README.md
 ```

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Puerta de Calidad: valida las salidas Plata y conserva filas rechazadas."""
+"""Puerta de Calidad: valida las salidas Plata y Oro y conserva filas rechazadas."""
 import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,24 +11,25 @@ import pandera.pandas as pa
 RAIZ = Path(__file__).resolve().parent.parent
 PLATA = RAIZ / "data" / "plata"
 CUARENTENA = RAIZ / "data" / "cuarentena"
+ORO = RAIZ / "data" / "oro"
 
 
-def _columna_float(checks=()):
+def _columna_float(checks=(), nullable=False):
     return pa.Column(
         float,
-        checks=[pa.Check(lambda valores: np.isfinite(valores), name="finito"), *checks],
-        nullable=False,
+        checks=[pa.Check(lambda valores: np.isfinite(valores.dropna()), name="finito"), *checks],
+        nullable=nullable,
     )
 
 
-def _texto_no_vacio():
+def _texto_no_vacio(nullable=False):
     return pa.Column(
         pa.String,
         checks=pa.Check(
-            lambda valores: valores.astype(str).str.strip().ne(""),
+            lambda valores: valores.dropna().astype(str).str.strip().ne(""),
             name="no_vacio",
         ),
-        nullable=False,
+        nullable=nullable,
     )
 
 
@@ -50,6 +51,8 @@ ESQUEMA_SNIIM = pa.DataFrameSchema(
         "precio_max": _columna_float([pa.Check.gt(0)]),
         "precio_frec": _columna_float([pa.Check.gt(0)]),
         "archivo_origen": _texto_no_vacio(),
+        "fecha_ingesta_bronce": _texto_no_vacio(),
+        "sha256_bronce": _texto_no_vacio(),
         "es_duplicado": pa.Column(bool, nullable=False),
         "es_atipico": pa.Column(bool, nullable=False),
         "precio_min_corr": _columna_float([pa.Check.gt(0)]),
@@ -97,6 +100,10 @@ ESQUEMA_INTEGRADO = pa.DataFrameSchema(
         "en_siap": pa.Column(bool, nullable=False),
         "anio_dato_siap": pa.Column(int, checks=pa.Check.ge(2000), nullable=False),
         "siap_imputado": pa.Column(bool, nullable=False),
+        "temp_media_c": _columna_float(),
+        "temp_min_c": _columna_float(),
+        "temp_max_c": _columna_float(),
+        "precipitacion_mm": _columna_float([pa.Check.ge(0)]),
         "precio_frec_media_minmax": _columna_float(),
         "precio_frec_media_z": _columna_float(),
         "precio_min_minmax": _columna_float(),
@@ -137,6 +144,18 @@ ESQUEMA_INTEGRADO = pa.DataFrameSchema(
             checks=pa.Check.isin(["baja", "media", "alta"]),
             nullable=False,
         ),
+        # Linaje a Bronce
+        "archivos_bronce_sniim": _texto_no_vacio(),
+        "fecha_ingesta_sniim": _texto_no_vacio(),
+        "sha256_bronce_sniim": _texto_no_vacio(),
+        "archivo_bronce_siap": _texto_no_vacio(),
+        "fecha_ingesta_siap": _texto_no_vacio(),
+        "sha256_bronce_siap": _texto_no_vacio(),
+        "archivo_bronce_clima": _texto_no_vacio(),
+        "fecha_ingesta_clima": _texto_no_vacio(),
+        "sha256_bronce_clima": _texto_no_vacio(),
+        "fecha_ingesta_reciente_bronce": _texto_no_vacio(),
+        "linaje_id": _texto_no_vacio(),
     },
     checks=[
         pa.Check(
@@ -171,6 +190,37 @@ ESQUEMA_INTEGRADO = pa.DataFrameSchema(
         ),
     ],
     strict=True,
+    coerce=True,
+)
+
+ESQUEMA_ORO_MENSUAL = pa.DataFrameSchema(
+    {
+        "registro_id_oro": _texto_no_vacio(),
+        "linaje_id": _texto_no_vacio(),
+        "anio_mes": pa.Column(pa.DateTime, nullable=False),
+        "anio": pa.Column(int, checks=pa.Check.ge(2000), nullable=False),
+        "mes": pa.Column(int, checks=pa.Check.in_range(1, 12), nullable=False),
+        "trimestre": pa.Column(int, checks=pa.Check.in_range(1, 4), nullable=False),
+        "semestre": pa.Column(int, checks=pa.Check.in_range(1, 2), nullable=False),
+        "estado": _texto_no_vacio(),
+        "region": pa.Column(pa.String, checks=pa.Check.isin(["occidente", "sur", "noroeste", "sureste"]), nullable=False),
+        "precio_frec_media": _columna_float([pa.Check.gt(0)]),
+        "produccion_ton": _columna_float([pa.Check.gt(0)]),
+        "precio_rural_kg": _columna_float([pa.Check.gt(0)]),
+        "temp_media_c": _columna_float(),
+        "precipitacion_mm": _columna_float([pa.Check.ge(0)]),
+        "precio_lag_1m": _columna_float(nullable=True),
+        "precio_lag_2m": _columna_float(nullable=True),
+        "var_mensual_precio_pct": _columna_float(nullable=True),
+        "archivos_bronce_sniim": _texto_no_vacio(),
+        "fecha_ingesta_sniim": _texto_no_vacio(),
+        "archivo_bronce_siap": _texto_no_vacio(),
+        "fecha_ingesta_siap": _texto_no_vacio(),
+        "archivo_bronce_clima": _texto_no_vacio(),
+        "fecha_ingesta_clima": _texto_no_vacio(),
+        "fecha_ingesta_reciente_bronce": _texto_no_vacio(),
+    },
+    strict=False,
     coerce=True,
 )
 
@@ -281,11 +331,13 @@ def validar_archivo(entrada, salida, cuarentena, esquema, fuente):
     return entrada_filas, filas_validas, filas_cuarentena
 
 
-def validar_archivos(plata=PLATA, cuarentena=CUARENTENA):
-    """Ejecuta la Puerta de Calidad sobre los dos productos Plata requeridos."""
+def validar_archivos(plata=PLATA, cuarentena=CUARENTENA, oro=ORO):
+    """Ejecuta la Puerta de Calidad sobre los productos Plata y Oro."""
     plata = Path(plata)
     cuarentena = Path(cuarentena)
-    return [
+    oro = Path(oro)
+    
+    resultados = [
         validar_archivo(
             plata / "sniim_diario_homologado.parquet",
             plata / "sniim_diario_validado.parquet",
@@ -301,6 +353,14 @@ def validar_archivos(plata=PLATA, cuarentena=CUARENTENA):
             "integrado_reducido",
         ),
     ]
+
+    archivo_oro = oro / "oro_serie_mensual_observatorio.parquet"
+    if archivo_oro.exists():
+        datos_oro = pd.read_parquet(archivo_oro)
+        validos_oro, _ = validar_dataframe(datos_oro, ESQUEMA_ORO_MENSUAL)
+        print(f"oro_serie_mensual: {len(datos_oro)} filas validadas exitosamente con Pandera.")
+
+    return resultados
 
 
 if __name__ == "__main__":
