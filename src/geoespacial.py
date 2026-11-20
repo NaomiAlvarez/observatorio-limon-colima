@@ -171,3 +171,4 @@ def parsear_json_clima(ruta_json, estado):
     df["anio_mes"] = df["fecha"].dt.to_period("M").dt.to_timestamp()
     df["archivo_origen"] = Path(ruta_json).name
     return df
+
