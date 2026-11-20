@@ -1,15 +1,30 @@
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
+RAIZ = Path(__file__).resolve().parent.parent
+if str(RAIZ) not in sys.path:
+    sys.path.insert(0, str(RAIZ))
+if str(RAIZ / "src") not in sys.path:
+    sys.path.insert(0, str(RAIZ / "src"))
+
 import pandas as pd
 
-from src.calidad import (
-    ESQUEMA_INTEGRADO,
-    ESQUEMA_SNIIM,
-    validar_archivo,
-    validar_dataframe,
-)
+try:
+    from src.calidad import (
+        ESQUEMA_INTEGRADO,
+        ESQUEMA_SNIIM,
+        validar_archivo,
+        validar_dataframe,
+    )
+except ImportError:
+    from calidad import (
+        ESQUEMA_INTEGRADO,
+        ESQUEMA_SNIIM,
+        validar_archivo,
+        validar_dataframe,
+    )
 
 
 def fila_sniim(**cambios):
@@ -26,6 +41,8 @@ def fila_sniim(**cambios):
         "precio_max": 20.0,
         "precio_frec": 18.42,
         "archivo_origen": "2024-02-01_2024-02-29.html",
+        "fecha_ingesta_bronce": "2026-11-07T18:24:49+00:00",
+        "sha256_bronce": "cb45d645c3077d001bbce069f6135b8547b0e300a27b8d4857b587c1e8ef4a6a",
         "es_duplicado": False,
         "es_atipico": False,
         "precio_min_corr": 18.42,
@@ -52,6 +69,10 @@ def fila_integrada(**cambios):
         "en_siap": True,
         "anio_dato_siap": 2024,
         "siap_imputado": False,
+        "temp_media_c": 25.5,
+        "temp_min_c": 18.0,
+        "temp_max_c": 32.0,
+        "precipitacion_mm": 5.2,
         "precio_frec_media_minmax": 0.5,
         "precio_frec_media_z": 0.1,
         "precio_min_minmax": 0.5,
@@ -72,6 +93,17 @@ def fila_integrada(**cambios):
         "precio_nivel": "medio",
         "precio_rango": "bajo",
         "produccion_nivel": "alta",
+        "archivos_bronce_sniim": "2024-02-01_2024-02-29.html",
+        "fecha_ingesta_sniim": "2026-11-07T18:24:49+00:00",
+        "sha256_bronce_sniim": "cb45d645c3077d001bbce069f6135b8547b0e300a27b8d4857b587c1e8ef4a6a",
+        "archivo_bronce_siap": "cierre_2024.csv.gz",
+        "fecha_ingesta_siap": "2026-11-07T18:35:12+00:00",
+        "sha256_bronce_siap": "2c6c69dfa0b0cdc28db67a20a5043e9d95e9080cf7aba7ab44e2a5af6950617d",
+        "archivo_bronce_clima": "colima_2023-11-01_2026-10-31.json",
+        "fecha_ingesta_clima": "2026-11-20T19:25:44.327222+00:00",
+        "sha256_bronce_clima": "eeea53666d871b8c40cc45a8f1682a6222963b7af2601659c0ae9cc118b1e6c2",
+        "fecha_ingesta_reciente_bronce": "2026-11-20T19:25:44.327222+00:00",
+        "linaje_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
     }
     return {**fila, **cambios}
 

@@ -5,3 +5,5 @@ Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
 2026-11-07,Entorno,ETL,ETL,5,Comandos ejecutados en la carpeta equivocada (fuera del repositorio) (tiempo estimado)
 2026-11-12,Datos,ETL,Test,15,"Inconsistencia en cotización SNIIM con precio_min > precio_frec; se añadió regla de incoherencia para canalización a cuarentena."
 2026-11-13,Entorno,Test,Test,5,"Fallo de importación en pytest sin sys.path configurado; se creó archivo pytest.ini con pythonpath = ."
+2026-11-20,Datos,ETL,Test,10,"Disparidad en fechas de clima al cortar en octubre cuando SNIIM tenía días de noviembre; se amplió la captura a noviembre 2026."
+2026-11-20,Codificación,ETL,Test,5,"Fallo de importación relativa de geoespacial en test_linaje; se configuró pythonpath con src en pytest.ini y fallback en oro.py."

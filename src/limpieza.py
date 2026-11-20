@@ -46,6 +46,10 @@ def imputar_faltantes(df, siap_anual):
     for c in COLS_SIAP:
         df.loc[puede_imputar, c] = df.loc[puede_imputar, "estado"].map(ultimo[c])
 
+    for c in ["archivo_bronce_siap", "fecha_ingesta_siap", "sha256_bronce_siap"]:
+        if c in df.columns and c in ultimo.columns:
+            df.loc[puede_imputar, c] = df.loc[puede_imputar, "estado"].map(ultimo[c])
+
     df["siap_imputado"] = puede_imputar
     df["anio_dato_siap"] = df["anio_dato_siap"].astype("Int64")
 

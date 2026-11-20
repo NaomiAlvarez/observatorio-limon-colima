@@ -1,8 +1,9 @@
 """Punto de entrada de la extracción (capa Bronce).
 
-Ejecuta las dos capturas del proyecto:
+Ejecuta las tres capturas del proyecto:
   - SNIIM: precios de mayoreo (src/sniim_captura.py)
   - SIAP: producción municipal (src/siap_captura.py)
+  - Clima/Geo: agroclima Open-Meteo de zonas productoras (src/clima_captura.py)
 
 Uso:  python src/extractor.py [--ultimos-dias N]
 """
@@ -15,7 +16,11 @@ SRC = Path(__file__).resolve().parent
 
 def main():
     args_sniim = sys.argv[1:]   # se reenvían tal cual a sniim_captura.py
-    for script, args in (("sniim_captura.py", args_sniim), ("siap_captura.py", [])):
+    for script, args in (
+        ("sniim_captura.py", args_sniim),
+        ("siap_captura.py", []),
+        ("clima_captura.py", []),
+    ):
         subprocess.run([sys.executable, str(SRC / script), *args], check=True)
 
 
