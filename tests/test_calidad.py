@@ -1,15 +1,30 @@
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
+RAIZ = Path(__file__).resolve().parent.parent
+if str(RAIZ) not in sys.path:
+    sys.path.insert(0, str(RAIZ))
+if str(RAIZ / "src") not in sys.path:
+    sys.path.insert(0, str(RAIZ / "src"))
+
 import pandas as pd
 
-from src.calidad import (
-    ESQUEMA_INTEGRADO,
-    ESQUEMA_SNIIM,
-    validar_archivo,
-    validar_dataframe,
-)
+try:
+    from src.calidad import (
+        ESQUEMA_INTEGRADO,
+        ESQUEMA_SNIIM,
+        validar_archivo,
+        validar_dataframe,
+    )
+except ImportError:
+    from calidad import (
+        ESQUEMA_INTEGRADO,
+        ESQUEMA_SNIIM,
+        validar_archivo,
+        validar_dataframe,
+    )
 
 
 def fila_sniim(**cambios):

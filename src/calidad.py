@@ -6,7 +6,14 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pandera.pandas as pa
+import os
+
+os.environ["DISABLE_PANDERA_IMPORT_WARNING"] = "True"
+
+try:
+    import pandera.pandas as pa  # type: ignore[import-untyped,import-not-found]
+except (ImportError, AttributeError):
+    import pandera as pa  # type: ignore[no-redef]
 
 RAIZ = Path(__file__).resolve().parent.parent
 PLATA = RAIZ / "data" / "plata"
@@ -357,8 +364,14 @@ def validar_archivos(plata=PLATA, cuarentena=CUARENTENA, oro=ORO):
     archivo_oro = oro / "oro_serie_mensual_observatorio.parquet"
     if archivo_oro.exists():
         datos_oro = pd.read_parquet(archivo_oro)
-        validos_oro, _ = validar_dataframe(datos_oro, ESQUEMA_ORO_MENSUAL)
-        print(f"oro_serie_mensual: {len(datos_oro)} filas validadas exitosamente con Pandera.")
+        validos_oro, invalidos_oro = validar_dataframe(datos_oro, ESQUEMA_ORO_MENSUAL)
+        if not invalidos_oro.empty:
+            _guardar_cuarentena(
+                invalidos_oro, "oro_serie_mensual", cuarentena / "oro_serie_mensual.csv"
+            )
+        print(
+            f"oro_serie_mensual: {len(validos_oro)}/{len(datos_oro)} filas validadas exitosamente con Pandera."
+        )
 
     return resultados
 
