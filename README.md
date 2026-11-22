@@ -12,6 +12,12 @@ mediante una arquitectura de capas **Bronce → Plata → Oro**.
 | E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad y capa Plata | `e1` | Entregada |
 | E2 | Fuente especializada (geoespacial/clima), Capa Oro y Linaje Bronce-Plata-Oro | `e2` | Fase técnica completada |
 
+Documentación de E2:
+
+- [Declaración de ética y privacidad](docs/etica-datos.md)
+- [Ficha de entrega E2](docs/E2/ENTREGA.md)
+- [Relatoría E2](docs/relatoria-E2.md)
+
 Avance de la E1:
 
 - [x] Integración y resolución de conflictos de esquema (SNIIM + SIAP)
