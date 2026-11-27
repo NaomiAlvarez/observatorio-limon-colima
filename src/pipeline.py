@@ -31,12 +31,12 @@ def main():
     # Paso 3 (SIAP): IQR informativo sobre el rendimiento
     siap_h = marcar_atipicos_iqr(siap_h, "rendimiento_ton_ha")
 
-    # Copias intermedias SIN imputar (trazabilidad y reproducibilidad)
-    integrado.to_parquet(plata / "integrado_sin_validar.parquet", index=False)
-    sniim_d.to_parquet(plata / "sniim_diario_homologado.parquet", index=False)
-    siap_h.to_parquet(plata / "siap_municipal_homologado.parquet", index=False)
+    # Copias intermedias SIN imputar (trazabilidad y reproducibilidad con compresión Snappy)
+    integrado.to_parquet(plata / "integrado_sin_validar.parquet", index=False, engine="pyarrow", compression="snappy")
+    sniim_d.to_parquet(plata / "sniim_diario_homologado.parquet", index=False, engine="pyarrow", compression="snappy")
+    siap_h.to_parquet(plata / "siap_municipal_homologado.parquet", index=False, engine="pyarrow", compression="snappy")
     if not clima_d.empty:
-        clima_d.to_parquet(plata / "clima_diario_homologado.parquet", index=False)
+        clima_d.to_parquet(plata / "clima_diario_homologado.parquet", index=False, engine="pyarrow", compression="snappy")
 
     # Reporte de atípicos e incoherencias del SNIIM (evidencia para auditoría)
     reporte = sniim_d[sniim_d["es_atipico"] | sniim_d["precio_incoherente"]]
@@ -48,7 +48,7 @@ def main():
     diagnostico_faltantes(integrado)
     siap_anual = agregar_siap_anual(siap_h)
     integrado = imputar_faltantes(integrado, siap_anual)
-    integrado.to_parquet(plata / "integrado_imputado.parquet", index=False)
+    integrado.to_parquet(plata / "integrado_imputado.parquet", index=False, engine="pyarrow", compression="snappy")
 
     # Paso 4: normalización y estandarización
     print("\n===== PASO 4: NORMALIZACIÓN =====")
@@ -57,12 +57,12 @@ def main():
     # Paso 5: discretización y jerarquías
     print("\n===== PASO 5: DISCRETIZACIÓN =====")
     integrado = discretizar(integrado)
-    integrado.to_parquet(plata / "integrado_transformado.parquet", index=False)
+    integrado.to_parquet(plata / "integrado_transformado.parquet", index=False, engine="pyarrow", compression="snappy")
 
     # Paso 6: reducción de datos
     print("\n===== PASO 6: REDUCCIÓN =====")
     reducido, eliminadas = reducir(integrado, siap_h, sniim_d)
-    reducido.to_parquet(plata / "integrado_reducido.parquet", index=False)
+    reducido.to_parquet(plata / "integrado_reducido.parquet", index=False, engine="pyarrow", compression="snappy")
     print("\nColumnas finales en Plata:", list(reducido.columns))
 
     # Paso 7: Puerta de Calidad Plata (Pandera)
@@ -76,17 +76,17 @@ def main():
 
     # 1. Tabla Oro Mensual (Lags predictivos + Clima + Producción + Linaje)
     oro_mensual = construir_oro_mensual(reducido_validado)
-    oro_mensual.to_parquet(oro / "oro_serie_mensual_observatorio.parquet", index=False)
+    oro_mensual.to_parquet(oro / "oro_serie_mensual_observatorio.parquet", index=False, engine="pyarrow", compression="snappy")
     print(f"  Tabla Oro Mensual generada: {oro_mensual.shape} en {oro / 'oro_serie_mensual_observatorio.parquet'}")
 
     # 2. Tabla Oro Geoespacial (Rutas comerciales + Distancia Haversine + Spreads de precios)
     oro_geo = construir_oro_geoespacial(sniim_validado, siap_anual)
-    oro_geo.to_parquet(oro / "oro_mercados_geoespacial.parquet", index=False)
+    oro_geo.to_parquet(oro / "oro_mercados_geoespacial.parquet", index=False, engine="pyarrow", compression="snappy")
     print(f"  Tabla Oro Geoespacial generada: {oro_geo.shape} en {oro / 'oro_mercados_geoespacial.parquet'}")
 
     # 3. Matriz de Linaje y Trazabilidad Extremo a Extremo
     matriz_linaje = construir_matriz_linaje(oro_mensual, oro_geo, bitacoras)
-    matriz_linaje.to_parquet(oro / "oro_linaje_matriz.parquet", index=False)
+    matriz_linaje.to_parquet(oro / "oro_linaje_matriz.parquet", index=False, engine="pyarrow", compression="snappy")
     matriz_linaje.to_csv(oro / "oro_linaje_matriz.csv", index=False)
     print(f"  Matriz de Linaje generada: {len(matriz_linaje)} vínculos trazables Bronce -> Oro")
 

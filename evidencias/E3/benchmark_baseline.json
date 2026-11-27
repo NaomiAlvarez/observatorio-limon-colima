@@ -1,0 +1,273 @@
+{
+  "etiqueta": "baseline",
+  "n_iteraciones": 5,
+  "tiempo_total": {
+    "media_s": 27.379,
+    "std_s": 2.3573,
+    "min_s": 25.9617,
+    "max_s": 32.0839
+  },
+  "memoria_pico_tracemalloc_mb": {
+    "media_mb": 10.69,
+    "std_mb": 1.27,
+    "min_mb": 10.05,
+    "max_mb": 13.24
+  },
+  "memoria_rss_mb": {
+    "media_mb": 161.18,
+    "std_mb": 7.42
+  },
+  "integridad": {
+    "filas_sniim_plata": 3634,
+    "filas_integrado_plata": 137,
+    "filas_oro_mensual": 137,
+    "filas_oro_geo": 174,
+    "filas_matriz_linaje": 599,
+    "cuarentena_total": 6,
+    "discrepancias_linaje": 0,
+    "errores_totales": 0
+  },
+  "estadisticas_pasos": {
+    "1_integracion": {
+      "tiempo_medio_s": 23.279,
+      "tiempo_std_s": 1.9057,
+      "tiempo_min_s": 22.1323,
+      "tiempo_max_s": 27.0792,
+      "memoria_pico_media_mb": 27.74,
+      "memoria_pico_std_mb": 0.34
+    },
+    "2_faltantes_imputacion": {
+      "tiempo_medio_s": 0.1935,
+      "tiempo_std_s": 0.0091,
+      "tiempo_min_s": 0.1839,
+      "tiempo_max_s": 0.2108,
+      "memoria_pico_media_mb": 8.92,
+      "memoria_pico_std_mb": 0.74
+    },
+    "3_normalizacion": {
+      "tiempo_medio_s": 0.0757,
+      "tiempo_std_s": 0.0029,
+      "tiempo_min_s": 0.0719,
+      "tiempo_max_s": 0.0808,
+      "memoria_pico_media_mb": 8.0,
+      "memoria_pico_std_mb": 0.74
+    },
+    "4_discretizacion": {
+      "tiempo_medio_s": 0.0997,
+      "tiempo_std_s": 0.0106,
+      "tiempo_min_s": 0.0879,
+      "tiempo_max_s": 0.1197,
+      "memoria_pico_media_mb": 8.09,
+      "memoria_pico_std_mb": 0.74
+    },
+    "5_reduccion": {
+      "tiempo_medio_s": 0.0641,
+      "tiempo_std_s": 0.0023,
+      "tiempo_min_s": 0.0601,
+      "tiempo_max_s": 0.0666,
+      "memoria_pico_media_mb": 9.11,
+      "memoria_pico_std_mb": 0.74
+    },
+    "6_puerta_calidad": {
+      "tiempo_medio_s": 2.323,
+      "tiempo_std_s": 0.4277,
+      "tiempo_min_s": 2.0646,
+      "tiempo_max_s": 3.1769,
+      "memoria_pico_media_mb": 12.13,
+      "memoria_pico_std_mb": 1.27
+    },
+    "7_capa_oro": {
+      "tiempo_medio_s": 1.3098,
+      "tiempo_std_s": 0.0202,
+      "tiempo_min_s": 1.2844,
+      "tiempo_max_s": 1.3459,
+      "memoria_pico_media_mb": 12.35,
+      "memoria_pico_std_mb": 1.27
+    },
+    "8_auditoria_linaje": {
+      "tiempo_medio_s": 0.0309,
+      "tiempo_std_s": 0.0023,
+      "tiempo_min_s": 0.0279,
+      "tiempo_max_s": 0.0336,
+      "memoria_pico_media_mb": 10.69,
+      "memoria_pico_std_mb": 1.27
+    }
+  },
+  "corridas_detalle": [
+    {
+      "corrida_id": 1,
+      "tiempo_total_segundos": 32.0839,
+      "memoria_pico_tracemalloc_mb": 13.24,
+      "memoria_rss_final_mb": 148.38,
+      "memoria_rss_delta_mb": 51.48,
+      "filas_sniim_plata": 3634,
+      "filas_integrado_plata": 137,
+      "filas_oro_mensual": 137,
+      "filas_oro_geo": 174,
+      "filas_matriz_linaje": 599,
+      "cuarentena_total": 6,
+      "discrepancias_linaje": 0,
+      "errores_conteo": 0,
+      "tiempos_por_paso": {
+        "1_integracion": 27.0792,
+        "2_faltantes_imputacion": 0.2108,
+        "3_normalizacion": 0.0808,
+        "4_discretizacion": 0.1197,
+        "5_reduccion": 0.0657,
+        "6_puerta_calidad": 3.1769,
+        "7_capa_oro": 1.3116,
+        "8_auditoria_linaje": 0.0332
+      },
+      "memorias_por_paso": {
+        "1_integracion": 28.42,
+        "2_faltantes_imputacion": 10.39,
+        "3_normalizacion": 9.49,
+        "4_discretizacion": 9.58,
+        "5_reduccion": 10.59,
+        "6_puerta_calidad": 14.67,
+        "7_capa_oro": 14.9,
+        "8_auditoria_linaje": 13.24
+      }
+    },
+    {
+      "corrida_id": 2,
+      "tiempo_total_segundos": 26.4181,
+      "memoria_pico_tracemalloc_mb": 10.05,
+      "memoria_rss_final_mb": 158.82,
+      "memoria_rss_delta_mb": 15.92,
+      "filas_sniim_plata": 3634,
+      "filas_integrado_plata": 137,
+      "filas_oro_mensual": 137,
+      "filas_oro_geo": 174,
+      "filas_matriz_linaje": 599,
+      "cuarentena_total": 6,
+      "discrepancias_linaje": 0,
+      "errores_conteo": 0,
+      "tiempos_por_paso": {
+        "1_integracion": 22.532,
+        "2_faltantes_imputacion": 0.1914,
+        "3_normalizacion": 0.0748,
+        "4_discretizacion": 0.0972,
+        "5_reduccion": 0.0601,
+        "6_puerta_calidad": 2.1268,
+        "7_capa_oro": 1.3043,
+        "8_auditoria_linaje": 0.0286
+      },
+      "memorias_por_paso": {
+        "1_integracion": 27.57,
+        "2_faltantes_imputacion": 8.55,
+        "3_normalizacion": 7.63,
+        "4_discretizacion": 7.72,
+        "5_reduccion": 8.73,
+        "6_puerta_calidad": 11.49,
+        "7_capa_oro": 11.71,
+        "8_auditoria_linaje": 10.05
+      }
+    },
+    {
+      "corrida_id": 3,
+      "tiempo_total_segundos": 26.147,
+      "memoria_pico_tracemalloc_mb": 10.06,
+      "memoria_rss_final_mb": 162.12,
+      "memoria_rss_delta_mb": 9.18,
+      "filas_sniim_plata": 3634,
+      "filas_integrado_plata": 137,
+      "filas_oro_mensual": 137,
+      "filas_oro_geo": 174,
+      "filas_matriz_linaje": 599,
+      "cuarentena_total": 6,
+      "discrepancias_linaje": 0,
+      "errores_conteo": 0,
+      "tiempos_por_paso": {
+        "1_integracion": 22.2106,
+        "2_faltantes_imputacion": 0.1839,
+        "3_normalizacion": 0.075,
+        "4_discretizacion": 0.0965,
+        "5_reduccion": 0.0635,
+        "6_puerta_calidad": 2.1378,
+        "7_capa_oro": 1.3459,
+        "8_auditoria_linaje": 0.0311
+      },
+      "memorias_por_paso": {
+        "1_integracion": 27.57,
+        "2_faltantes_imputacion": 8.55,
+        "3_normalizacion": 7.63,
+        "4_discretizacion": 7.73,
+        "5_reduccion": 8.74,
+        "6_puerta_calidad": 11.5,
+        "7_capa_oro": 11.72,
+        "8_auditoria_linaje": 10.06
+      }
+    },
+    {
+      "corrida_id": 4,
+      "tiempo_total_segundos": 25.9617,
+      "memoria_pico_tracemalloc_mb": 10.05,
+      "memoria_rss_final_mb": 166.87,
+      "memoria_rss_delta_mb": 10.38,
+      "filas_sniim_plata": 3634,
+      "filas_integrado_plata": 137,
+      "filas_oro_mensual": 137,
+      "filas_oro_geo": 174,
+      "filas_matriz_linaje": 599,
+      "cuarentena_total": 6,
+      "discrepancias_linaje": 0,
+      "errores_conteo": 0,
+      "tiempos_por_paso": {
+        "1_integracion": 22.1323,
+        "2_faltantes_imputacion": 0.1902,
+        "3_normalizacion": 0.0719,
+        "4_discretizacion": 0.0972,
+        "5_reduccion": 0.0666,
+        "6_puerta_calidad": 2.0646,
+        "7_capa_oro": 1.3027,
+        "8_auditoria_linaje": 0.0336
+      },
+      "memorias_por_paso": {
+        "1_integracion": 27.57,
+        "2_faltantes_imputacion": 8.54,
+        "3_normalizacion": 7.63,
+        "4_discretizacion": 7.72,
+        "5_reduccion": 8.73,
+        "6_puerta_calidad": 11.49,
+        "7_capa_oro": 11.71,
+        "8_auditoria_linaje": 10.05
+      }
+    },
+    {
+      "corrida_id": 5,
+      "tiempo_total_segundos": 26.2844,
+      "memoria_pico_tracemalloc_mb": 10.07,
+      "memoria_rss_final_mb": 169.69,
+      "memoria_rss_delta_mb": 10.93,
+      "filas_sniim_plata": 3634,
+      "filas_integrado_plata": 137,
+      "filas_oro_mensual": 137,
+      "filas_oro_geo": 174,
+      "filas_matriz_linaje": 599,
+      "cuarentena_total": 6,
+      "discrepancias_linaje": 0,
+      "errores_conteo": 0,
+      "tiempos_por_paso": {
+        "1_integracion": 22.4408,
+        "2_faltantes_imputacion": 0.1911,
+        "3_normalizacion": 0.0762,
+        "4_discretizacion": 0.0879,
+        "5_reduccion": 0.0646,
+        "6_puerta_calidad": 2.1088,
+        "7_capa_oro": 1.2844,
+        "8_auditoria_linaje": 0.0279
+      },
+      "memorias_por_paso": {
+        "1_integracion": 27.57,
+        "2_faltantes_imputacion": 8.55,
+        "3_normalizacion": 7.63,
+        "4_discretizacion": 7.72,
+        "5_reduccion": 8.74,
+        "6_puerta_calidad": 11.5,
+        "7_capa_oro": 11.72,
+        "8_auditoria_linaje": 10.07
+      }
+    }
+  ]
+}

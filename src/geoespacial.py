@@ -104,7 +104,7 @@ COORDENADAS_DESTINO = {
 
 
 def haversine_km(lat1, lon1, lat2, lon2):
-    """Calcula la distancia geodésica en kilómetros entre dos coordenadas (Haversine)."""
+    """Calcula la distancia geodésica en kilómetros entre dos coordenadas (Haversine escalar)."""
     if any(pd.isna([lat1, lon1, lat2, lon2])):
         return np.nan
     # Convertir grados a radianes
@@ -118,38 +118,46 @@ def haversine_km(lat1, lon1, lat2, lon2):
     return round(c * radio_tierra_km, 2)
 
 
+def haversine_km_vectorizado(lat1, lon1, lat2, lon2):
+    """Cálculo geodésico Haversine 100% vectorizado con NumPy (alto rendimiento)."""
+    lat1_rad = np.radians(lat1)
+    lon1_rad = np.radians(lon1)
+    lat2_rad = np.radians(lat2)
+    lon2_rad = np.radians(lon2)
+    dlat = lat2_rad - lat1_rad
+    dlon = lon2_rad - lon1_rad
+    a = np.sin(dlat / 2.0) ** 2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(dlon / 2.0) ** 2
+    c = 2.0 * np.arcsin(np.sqrt(np.clip(a, 0.0, 1.0)))
+    return np.round(c * 6371.0, 2)
+
+
+# Tablas hash precompiladas para mapeos O(1)
+_LAT_ORIGEN_MAP = {k: v["lat"] for k, v in COORDENADAS_ORIGEN.items()}
+_LON_ORIGEN_MAP = {k: v["lon"] for k, v in COORDENADAS_ORIGEN.items()}
+_MUNI_ORIGEN_MAP = {k: v["municipio"] for k, v in COORDENADAS_ORIGEN.items()}
+_LAT_DEST_MAP = {k: v["lat"] for k, v in COORDENADAS_DESTINO.items()}
+_LON_DEST_MAP = {k: v["lon"] for k, v in COORDENADAS_DESTINO.items()}
+_CIUDAD_DEST_MAP = {k: v["ciudad"] for k, v in COORDENADAS_DESTINO.items()}
+
+
 def enriquecer_mercados_geoespacial(df_sniim):
     """Enriquece cotizaciones del SNIIM con coordenadas y distancia de transporte."""
     df = df_sniim.copy()
     
-    # Coordenadas de origen
-    df["origen_lat"] = df["origen_estado"].map(
-        lambda e: COORDENADAS_ORIGEN.get(e, {}).get("lat", np.nan)
-    )
-    df["origen_lon"] = df["origen_estado"].map(
-        lambda e: COORDENADAS_ORIGEN.get(e, {}).get("lon", np.nan)
-    )
-    df["origen_municipio"] = df["origen_estado"].map(
-        lambda e: COORDENADAS_ORIGEN.get(e, {}).get("municipio", "")
-    )
+    # Coordenadas de origen mediante mapeo O(1)
+    df["origen_lat"] = df["origen_estado"].map(_LAT_ORIGEN_MAP)
+    df["origen_lon"] = df["origen_estado"].map(_LON_ORIGEN_MAP)
+    df["origen_municipio"] = df["origen_estado"].map(_MUNI_ORIGEN_MAP).fillna("")
     
-    # Coordenadas de destino
-    df["destino_lat"] = df["destino_mercado"].map(
-        lambda m: COORDENADAS_DESTINO.get(m, {}).get("lat", np.nan)
-    )
-    df["destino_lon"] = df["destino_mercado"].map(
-        lambda m: COORDENADAS_DESTINO.get(m, {}).get("lon", np.nan)
-    )
-    df["destino_ciudad"] = df["destino_mercado"].map(
-        lambda m: COORDENADAS_DESTINO.get(m, {}).get("ciudad", "")
-    )
+    # Coordenadas de destino mediante mapeo O(1)
+    df["destino_lat"] = df["destino_mercado"].map(_LAT_DEST_MAP)
+    df["destino_lon"] = df["destino_mercado"].map(_LON_DEST_MAP)
+    df["destino_ciudad"] = df["destino_mercado"].map(_CIUDAD_DEST_MAP).fillna("")
     
-    # Distancia de transporte geodésica (Haversine)
-    distancias = [
-        haversine_km(r.origen_lat, r.origen_lon, r.destino_lat, r.destino_lon)
-        for r in df.itertuples()
-    ]
-    df["distancia_transporte_km"] = distancias
+    # Distancia de transporte geodésica vectorizada (NumPy C-speed)
+    df["distancia_transporte_km"] = haversine_km_vectorizado(
+        df["origen_lat"], df["origen_lon"], df["destino_lat"], df["destino_lon"]
+    )
     return df
 
 
