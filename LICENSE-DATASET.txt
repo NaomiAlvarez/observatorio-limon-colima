@@ -1,0 +1,41 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Observatorio del Precio del Limón en Colima
+
+This dataset compilation is made available under the Creative Commons
+Attribution 4.0 International License.
+
+You are free to:
+- Share: copy and redistribute the compilation in any medium or format.
+- Adapt: remix, transform, and build upon the compilation.
+
+Under the following terms:
+- Attribution: give appropriate credit, provide a link to the license,
+  and indicate if changes were made.
+- No additional restrictions: do not apply legal terms or technological
+  measures that legally restrict others from doing anything the license permits.
+
+Full legal text:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Human-readable summary:
+https://creativecommons.org/licenses/by/4.0/
+
+Attribution:
+"Observatorio del Precio del Limón en Colima" compilation,
+Naomi Alvarez and Gonzalo Fletes, 2026.
+Repository: https://github.com/NaomiAlvarez/observatorio-limon-colima
+
+Source attribution:
+- SNIIM / Secretaría de Economía: daily wholesale lemon quotations.
+- SIAP / DGSIAP: annual agricultural municipal data.
+- Open-Meteo: historical weather data under CC BY 4.0.
+- Project geospatial representative catalog and Haversine calculations.
+
+Scope limitation:
+This license applies to the project compilation and original project-derived
+material. It does not replace or expand the terms of the original sources.
+The team has not identified a specific reusable license for SNIIM or SIAP
+data during its legal review. Open-Meteo attribution and terms remain
+required. Before public or commercial redistribution, recheck current source
+terms and obtain permission where needed.

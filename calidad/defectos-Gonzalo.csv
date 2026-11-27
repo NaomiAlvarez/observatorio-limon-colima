@@ -3,3 +3,6 @@ Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
 2026-11-07,Automatización,ETL,Test,240,"Se detectó que no se había ejecutado correctamente el workflow en GitHub. Se ejecutó nuevamente y en esta ocasión se realizó con éxito."
 2026-11-13,Codificación,ETL,Test,2,"La conversión de fallos de Pandera duplicaba los motivos de chequeos entre columnas; se corrigió la asociación de motivos por fila y se verificó con pruebas unitarias (tiempo de reparación estimado)."
 2026-11-22,Contenido,Docs,Docs,3,"La documentación E2 no estaba enlazada desde README.md al iniciar la revisión. Se agregaron los enlaces a la declaración ética, ficha de entrega y relatoría."
+2026-11-27,Codificación,Docs,Docs,2,"El texto de entrega E3 contenía la palabra incorrecta «víngenes» en la descripción del linaje. Se corrigió a «vínculos» y se verificó el resto del documento."
+2026-11-27,Contenido,Docs,Docs,10,"La primera revisión de distribución necesitaba aclarar con precisión que CC BY 4.0 aplica a la compilación propia y que SNIIM/SIAP podían tener condiciones distintas. Se completó la licencia, el datasheet y la procedencia de cada fuente."
+2026-11-27,Entorno,Test,Test,5,"pytest no estaba instalado en el intérprete activo. Se utilizó el comando unitario del repositorio con unittest y se verificaron las 16 pruebas disponibles."
