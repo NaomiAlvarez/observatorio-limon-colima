@@ -32,11 +32,9 @@ def construir_oro_mensual(integrado_df):
     """
     df = integrado_df.copy().sort_values(["estado", "anio_mes"]).reset_index(drop=True)
 
-    # Identificador único determinista de fila en Oro
-    df["registro_id_oro"] = [
-        generar_id_registro("oro_mensual", f"{r.estado}:{r.anio_mes:%Y-%m}")
-        for r in df.itertuples()
-    ]
+    # Identificador único determinista de fila en Oro vectorizado
+    claves = df["estado"] + ":" + df["anio_mes"].dt.strftime("%Y-%m")
+    df["registro_id_oro"] = claves.map(lambda c: generar_id_registro("oro_mensual", c))
 
     # Rezagos temporales (lags de 1, 2 y 3 meses por estado)
     df["precio_lag_1m"] = df.groupby("estado")["precio_frec_media"].shift(1)
@@ -98,15 +96,12 @@ def construir_oro_geoespacial(sniim_diario, siap_anual=None):
             rutas["spread_precio_kg"] / (rutas["distancia_transporte_km"] / 1000.0)
         ).round(2)
 
-    # Identificador único de fila en Oro
-    rutas["registro_id_oro"] = [
-        generar_id_registro("oro_geo", f"{r.origen_estado}:{r.destino_mercado}:{r.anio_mes:%Y-%m}")
-        for r in rutas.itertuples()
-    ]
-    rutas["linaje_id"] = [
-        hashlib.sha256(f"{r.registro_id_oro}:{r.sha256_bronce_sniim}".encode("utf-8")).hexdigest()
-        for r in rutas.itertuples()
-    ]
+    # Identificador único determinista de fila en Oro vectorizado
+    claves_geo = rutas["origen_estado"] + ":" + rutas["destino_mercado"] + ":" + rutas["anio_mes"].dt.strftime("%Y-%m")
+    rutas["registro_id_oro"] = claves_geo.map(lambda c: generar_id_registro("oro_geo", c))
+    rutas["linaje_id"] = (rutas["registro_id_oro"] + ":" + rutas["sha256_bronce_sniim"].fillna("")).map(
+        lambda s: hashlib.sha256(s.encode("utf-8")).hexdigest()
+    )
 
     return rutas
 
