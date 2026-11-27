@@ -1,0 +1,9 @@
+Fase del Pipeline,Tiempo Baseline (s),Tiempo Optimizado (s),Ahorro de Tiempo (s),Mejora (%),Speedup
+Paso 1: Ingesta e Integración (SNIIM + SIAP + Clima),23.279,18.9564,4.3226,+18.6%,1.23x
+Paso 2: Diagnóstico e Imputación MAR,0.1935,0.1954,-0.0019,-1.0%,0.99x
+Paso 3: Normalización (Min-Max) y Z-Score,0.0757,0.0802,-0.0045,-5.9%,0.94x
+Paso 4: Discretización y Jerarquías Conceptuales,0.0997,0.0952,0.0045,+4.5%,1.05x
+Paso 5: Reducción de Datos (Selección de Variables),0.0641,0.0667,-0.0026,-4.1%,0.96x
+Paso 6: Puerta de Calidad (Pandera Plata y Oro),2.323,2.2537,0.0693,+3.0%,1.03x
+Paso 7: Generación de Capa Oro y Linaje,1.3098,0.5534,0.7564,+57.7%,2.37x
+Paso 8: Auditoría de Fechas de Ingesta y Linaje,0.0309,0.0318,-0.0009,-2.9%,0.97x

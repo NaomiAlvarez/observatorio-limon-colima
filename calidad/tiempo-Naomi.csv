@@ -16,3 +16,7 @@ Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
 2026-11-20,ETL,10:45,12:15,0,90,"Implementación de clima_captura.py y geoespacial.py (georreferenciación y distancias Haversine)"
 2026-11-20,ETL,12:15,13:30,1,74,"Construcción del módulo oro.py y preservación de trazabilidad de fechas de ingesta en Plata y Oro"
 2026-11-20,Test,13:30,14:15,0,45,"Implementación de test_geoespacial.py y test_linaje.py, y verificación de conservación de fechas"
+2026-11-27,Plan,10:00,10:40,0,40,"Diagnóstico de rendimiento E3: diseño del arnés de benchmarking y medición de línea base"
+2026-11-27,ETL,10:45,12:15,0,90,"Optimización de pipeline: paralelización de lectura gzip con ThreadPoolExecutor y PyArrow en integracion.py, vectorización NumPy de Haversine en geoespacial.py y mapeo vectorial en oro.py"
+2026-11-27,Test,12:15,13:15,0,60,"Ejecución de benchmarks N=5 (baseline vs optimizado), suite de pruebas unitarias pytest y validación de integridad"
+2026-11-27,Docs,13:15,14:00,0,45,"Generación automatizada de reportes comparativos de rendimiento, análisis estadístico y documentación técnica E3"

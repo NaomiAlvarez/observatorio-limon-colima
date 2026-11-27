@@ -1,3 +1,4 @@
+import concurrent.futures
 import csv
 import hashlib
 import json
@@ -121,9 +122,12 @@ def _info_archivo_bronce(archivo, bitacora):
 def _tabla_sniim(ruta):
     """Devuelve la tabla de precios de un HTML del SNIIM, o None."""
     try:
-        tablas = pd.read_html(StringIO(_leer_texto(ruta)))
-    except ValueError:
-        return None
+        tablas = pd.read_html(StringIO(_leer_texto(ruta)), flavor="lxml")
+    except Exception:
+        try:
+            tablas = pd.read_html(StringIO(_leer_texto(ruta)))
+        except Exception:
+            return None
     for t in tablas:
         if t.shape[1] >= 7 and str(t.iloc[0, 0]).strip().lower() == "fecha":
             df = t.iloc[1:].copy()
@@ -178,10 +182,11 @@ def homologar_sniim(df, bitacora=None):
         out[c] = _a_numero(df[c])
     out["archivo_origen"] = df["archivo_origen"]
 
-    # Linaje y trazabilidad directa a Bronce
-    info_bronce = df["archivo_origen"].map(lambda a: bitacora.get(a, {}))
-    out["fecha_ingesta_bronce"] = info_bronce.map(lambda d: d.get("fecha_captura_utc", ""))
-    out["sha256_bronce"] = info_bronce.map(lambda d: d.get("sha256", ""))
+    # Linaje y trazabilidad directa a Bronce optimizada mediante hashmap O(1)
+    fechas_map = {k: v.get("fecha_captura_utc", "") for k, v in bitacora.items()}
+    sha_map = {k: v.get("sha256", "") for k, v in bitacora.items()}
+    out["fecha_ingesta_bronce"] = df["archivo_origen"].map(fechas_map).fillna("")
+    out["sha256_bronce"] = df["archivo_origen"].map(sha_map).fillna("")
 
     out = out.reset_index(drop=True)
     claves = ["fecha", "presentacion", "origen_estado", "destino_mercado"]
@@ -224,30 +229,37 @@ def _estandarizar_siap(df, nombre_archivo):
     return df[list(ALIAS_SIAP)]
 
 
+def _leer_archivo_siap(a):
+    """Lee y filtra un archivo municipal de SIAP con PyArrow y filtro de limón."""
+    df = None
+    try:
+        df = pd.read_csv(a, compression="gzip", encoding="latin-1", engine="pyarrow")
+    except Exception:
+        for enc in ("utf-8-sig", "latin-1"):
+            try:
+                df = pd.read_csv(a, compression="gzip", encoding=enc, low_memory=False)
+                break
+            except UnicodeDecodeError:
+                continue
+    if df is None:
+        raise ValueError(f"No se pudo leer {a}")
+
+    df = _estandarizar_siap(df, a.name)
+    es_limon = df["nomcultivo"].map(limpiar_texto).isin(CULTIVOS_LIMON)
+    df = df[es_limon].copy()
+    df["archivo_origen"] = a.name
+    return df
+
+
 def leer_siap(carpeta):
     carpeta = Path(carpeta)
     archivos = sorted(carpeta.rglob("*.csv.gz"))
     if not archivos:
         raise FileNotFoundError(f"No hay .csv.gz en {carpeta}")
 
-    frames = []
-    for a in archivos:
-        df = None
-        for enc in ("utf-8-sig", "latin-1"):
-            try:
-                df = pd.read_csv(a, compression="gzip", encoding=enc,
-                                 low_memory=False)
-                break
-            except UnicodeDecodeError:
-                continue
-        if df is None:
-            raise ValueError(f"No se pudo leer {a}")
-
-        df = _estandarizar_siap(df, a.name)
-        es_limon = df["nomcultivo"].map(limpiar_texto).isin(CULTIVOS_LIMON)
-        df = df[es_limon].copy()
-        df["archivo_origen"] = a.name
-        frames.append(df)
+    # Procesamiento multihilo paralelo para descompresión acelerada
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        frames = list(executor.map(_leer_archivo_siap, archivos))
 
     siap = pd.concat(frames, ignore_index=True)
     print(f"  SIAP: {len(archivos)} archivos, {len(siap)} filas de limón")
@@ -276,10 +288,11 @@ def homologar_siap(df, bitacora=None):
         out[destino] = _a_numero(df[origen])
     out["archivo_origen"] = df["archivo_origen"]
 
-    # Linaje y trazabilidad directa a Bronce
-    info_bronce = df["archivo_origen"].map(lambda a: bitacora.get(a, {}))
-    out["fecha_ingesta_bronce"] = info_bronce.map(lambda d: d.get("fecha_captura_utc", ""))
-    out["sha256_bronce"] = info_bronce.map(lambda d: d.get("sha256", ""))
+    # Linaje y trazabilidad directa a Bronce optimizada mediante hashmap
+    fechas_map = {k: v.get("fecha_captura_utc", "") for k, v in bitacora.items()}
+    sha_map = {k: v.get("sha256", "") for k, v in bitacora.items()}
+    out["fecha_ingesta_bronce"] = df["archivo_origen"].map(fechas_map).fillna("")
+    out["sha256_bronce"] = df["archivo_origen"].map(sha_map).fillna("")
 
     return out.reset_index(drop=True)
 
@@ -395,28 +408,18 @@ def fusionar(sniim_mes, siap_anual, clima_mes=None):
         integrado = integrado.merge(clima_mes, on=["anio_mes", "anio", "estado"], how="left")
         print("  Clima mensual integrado a las observaciones mensuales.")
 
-    # Trazabilidad consolidada y linaje determinista
-    fechas_ingesta = []
-    linajes = []
-    for r in integrado.itertuples():
-        # Fechas de ingesta conservadas
-        fechas = [
-            getattr(r, "fecha_ingesta_sniim", ""),
-            getattr(r, "fecha_ingesta_siap", ""),
-            getattr(r, "fecha_ingesta_clima", ""),
-        ]
-        fechas_validas = [f for f in fechas if f and pd.notna(f)]
-        fechas_ingesta.append(max(fechas_validas) if fechas_validas else "")
-        
-        # Hash compuesto de linaje
-        hash_componentes = (
-            f"{r.estado}:{r.anio_mes}:{getattr(r, 'sha256_bronce_sniim', '')}:"
-            f"{getattr(r, 'sha256_bronce_siap', '')}:{getattr(r, 'sha256_bronce_clima', '')}"
-        )
-        linajes.append(hashlib.sha256(hash_componentes.encode("utf-8")).hexdigest())
+    # Trazabilidad consolidada y linaje determinista vectorizado
+    cols_fechas = [c for c in ["fecha_ingesta_sniim", "fecha_ingesta_siap", "fecha_ingesta_clima"] if c in integrado.columns]
+    integrado["fecha_ingesta_reciente_bronce"] = integrado[cols_fechas].fillna("").max(axis=1)
 
-    integrado["fecha_ingesta_reciente_bronce"] = fechas_ingesta
-    integrado["linaje_id"] = linajes
+    hash_base = (
+        integrado["estado"].astype(str) + ":" +
+        integrado["anio_mes"].astype(str) + ":" +
+        integrado.get("sha256_bronce_sniim", pd.Series("", index=integrado.index)).fillna("").astype(str) + ":" +
+        integrado.get("sha256_bronce_siap", pd.Series("", index=integrado.index)).fillna("").astype(str) + ":" +
+        integrado.get("sha256_bronce_clima", pd.Series("", index=integrado.index)).fillna("").astype(str)
+    )
+    integrado["linaje_id"] = hash_base.map(lambda s: hashlib.sha256(s.encode("utf-8")).hexdigest())
 
     return integrado
 

@@ -7,3 +7,5 @@ Fecha,TipoDefecto,FaseInyectado,FaseRemovido,TiempoReparacion(min),Descripcion
 2026-11-13,Entorno,Test,Test,5,"Fallo de importación en pytest sin sys.path configurado; se creó archivo pytest.ini con pythonpath = ."
 2026-11-20,Datos,ETL,Test,10,"Disparidad en fechas de clima al cortar en octubre cuando SNIIM tenía días de noviembre; se amplió la captura a noviembre 2026."
 2026-11-20,Codificación,ETL,Test,5,"Fallo de importación relativa de geoespacial en test_linaje; se configuró pythonpath con src en pytest.ini y fallback en oro.py."
+2026-11-27,Datos,ETL,Test,10,"Pérdida de acentos en normalización rápida causaba desalineación en merge de climas; se preservó normalización NFKD sobre subconjunto filtrado."
+2026-11-27,Codificación,Test,Test,5,"Clave de mercado en test unitario mock no coincidía con catálogo COORDENADAS_DESTINO; se homologó a 'DF: Central de Abasto de Iztapalapa DF'."
