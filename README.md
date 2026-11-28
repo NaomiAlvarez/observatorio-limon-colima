@@ -11,12 +11,20 @@ mediante una arquitectura de capas **Bronce → Plata → Oro**.
 | E0 | Ingesta y capa Bronce (datos crudos con bitácora) | `e0` | Entregada |
 | E1 | Limpieza y preprocesamiento, integración, Puerta de Calidad y capa Plata | `e1` | Entregada |
 | E2 | Fuente especializada (geoespacial/clima), Capa Oro y Linaje Bronce-Plata-Oro | `e2` | Fase técnica completada |
+| E3 | Optimización, dataset limpio, licencia y documentación de entrega | `e3` | Entregada |
 
 Documentación de E2:
 
 - [Declaración de ética y privacidad](docs/etica-datos.md)
 - [Ficha de entrega E2](docs/E2/ENTREGA.md)
 - [Relatoría E2](docs/relatoria-E2.md)
+
+Documentación de E3:
+
+- [Datasheet](docs/E3/datasheet.md)
+- [Ficha de entrega E3](docs/E3/ENTREGA.md)
+- [Relatoría E3](docs/relatoria-E3.md)
+- [Licencia del dataset](LICENSE-DATASET.txt)
 
 Avance de la E1:
 
