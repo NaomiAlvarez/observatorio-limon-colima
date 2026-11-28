@@ -20,3 +20,4 @@ Fecha,Fase,TiempoInicio,TiempoFin,Interrupciones,TiempoNeto(min),Notas
 2026-11-27,ETL,10:45,12:15,0,90,"Optimización de pipeline: paralelización de lectura gzip con ThreadPoolExecutor y PyArrow en integracion.py, vectorización NumPy de Haversine en geoespacial.py y mapeo vectorial en oro.py"
 2026-11-27,Test,12:15,13:15,0,60,"Ejecución de benchmarks N=5 (baseline vs optimizado), suite de pruebas unitarias pytest y validación de integridad"
 2026-11-27,Docs,13:15,14:00,0,45,"Generación automatizada de reportes comparativos de rendimiento, análisis estadístico y documentación técnica E3"
+2026-11-28,ETL,00:30,02:10,0,100,"Análisis de series de tiempo U3-E1: preparación de datasets, caracterización, descomposición multiplicativa, ADF/KPSS, ACF/PACF, correlación cruzada preblanqueada y notebook ejecutado en docs/U3-E1/"
